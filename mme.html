@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KIUT | MME 325 – Management and Entrepreneurship</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ----- reset & base ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #fce7f0 0%, #dbeafe 100%);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      color: #0b1a2b;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ----- header ----- */
+    header {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(8px);
+      border-bottom: 3px solid #c8102e;
+      padding: 14px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #c8102e;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.2s;
+      letter-spacing: -0.3px;
+    }
+
+    .brand i {
+      font-size: 0.9rem;
+      color: #1a1a2e;
+      transition: transform 0.2s ease;
+    }
+
+    .brand:hover i {
+      transform: translateX(-5px);
+    }
+
+    .header-sub {
+      font-size: 0.85rem;
+      color: #1e2a3a;
+      background: #f0f4fa;
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header-sub i {
+      color: #c8102e;
+    }
+
+    /* ----- page layout ----- */
+    .resource-page {
+      max-width: 960px;
+      margin: 32px auto;
+      padding: 0 20px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* course header card */
+    .resource-header {
+      background: #ffffff;
+      padding: 30px 32px;
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+      margin-bottom: 28px;
+      border-left: 6px solid #c8102e;
+      transition: box-shadow 0.2s;
+    }
+
+    .resource-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: #0b1a2b;
+      letter-spacing: -0.4px;
+      line-height: 1.2;
+    }
+
+    .resource-header .meta {
+      color: #3d5068;
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 28px;
+      margin-top: 4px;
+    }
+
+    .resource-header .meta i {
+      margin-right: 6px;
+      color: #c8102e;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* section cards */
+    .resource-section {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.02);
+      padding: 22px 28px;
+      margin-bottom: 24px;
+      transition: box-shadow 0.2s, transform 0.1s;
+    }
+
+    .resource-section h3 {
+      font-size: 1.1rem;
+      margin: 0 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #eef2f6;
+      color: #0b1a2b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .resource-section h3 i {
+      color: #c8102e;
+    }
+
+    /* ----- BUTTONS refined ----- */
+    .occubtn,
+    .occubtn2 {
+      border-radius: 60px;
+      border: none;
+      padding: 14px 28px;
+      width: 100%;
+      text-align: center;
+      transition: all 0.25s ease;
+      cursor: default;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 1.1rem;
+    }
+
+    .occubtn {
+      background: linear-gradient(135deg, #ffdde6, #fbc4d2);
+      box-shadow: 0 4px 14px rgba(200, 16, 46, 0.10);
+    }
+
+    .occubtn:hover {
+      background: linear-gradient(135deg, #f7c2d0, #efb0c0);
+      transform: scale(1.01);
+      box-shadow: 0 8px 28px rgba(200, 16, 46, 0.18);
+    }
+
+    .occubtn a {
+      color: #1a1a2e;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .occubtn a i {
+      font-size: 1.3rem;
+      color: #b00e2a;
+    }
+
+    .occubtn a:hover {
+      color: #0b0b1a;
+    }
+
+    /* second button – now with black text */
+    .occubtn2 {
+      background: #d4e2f0;        /* soft, light blue-gray */
+      color: #0b1a2b;             /* black text */
+      box-shadow: 0 6px 18px rgba(11, 26, 43, 0.08);
+      gap: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      letter-spacing: 0.2px;
+    }
+
+    .occubtn2 i {
+      color: #1f3a5e;
+      font-size: 1.2rem;
+    }
+
+    .occubtn2:hover {
+      background: #c2d4e8;
+      transform: scale(1.01);
+      box-shadow: 0 10px 30px rgba(11, 26, 43, 0.12);
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .occubtn2 a {
+      color: #0b1a2b;             /* black text for link */
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .occubtn2 a i {
+      color: #1f3a5e;
+    }
+
+    /* info placeholder */
+    .info-placeholder {
+      text-align: center;
+      color: #5a6a7a;
+      padding: 12px 0 4px 0;
+      font-size: 0.95rem;
+    }
+
+    .info-placeholder i {
+      color: #c8102e;
+      margin-right: 8px;
+    }
+
+    /* upload area */
+    .upload-area {
+      margin-top: 8px;
+      padding: 28px 20px;
+      background: #f8fafc;
+      border: 2px dashed #d0d9e3;
+      border-radius: 24px;
+      text-align: center;
+      color: #4a5a6e;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .upload-area i {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 10px;
+      color: #8a9aa8;
+    }
+
+    .upload-area .btn-upload {
+      display: inline-block;
+      padding: 8px 28px;
+      background: #c8102e;
+      color: #fff;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      pointer-events: none;
+      opacity: 0.5;
+      margin-top: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    /* back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: #2c3e50;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: 40px;
+      background: #f0f4fa;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .back-link:hover {
+      background: #c8102e;
+      color: white;
+      transform: translateX(-5px);
+      box-shadow: 0 4px 12px rgba(200, 16, 46, 0.2);
+    }
+
+    .back-link i {
+      transition: transform 0.2s;
+    }
+
+    .back-link:hover i {
+      transform: translateX(-4px);
+    }
+
+    /* footer */
+    footer {
+      background: #0b1a2b;
+      color: #dbe1e8;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 30px;
+      border-top: 3px solid #c8102e;
+      letter-spacing: 0.2px;
+    }
+
+    footer p {
+      margin: 0;
+      opacity: 0.8;
+    }
+
+    /* responsive */
+    @media (max-width: 640px) {
+      .resource-header h1 {
+        font-size: 1.6rem;
+      }
+      .occubtn,
+      .occubtn2 {
+        font-size: 1rem;
+        padding: 12px 18px;
+      }
+      .resource-section {
+        padding: 18px 16px;
+      }
+      .brand {
+        font-size: 1.1rem;
+      }
+      .header-sub {
+        font-size: 0.75rem;
+        padding: 4px 14px;
+      }
+      .resource-header {
+        padding: 22px 20px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .resource-header .meta {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="index.html" class="brand">
+        <i class="fas fa-chevron-left"></i> BMS HUB
+      </a>
+      <span class="header-sub"><i class="fas fa-laptop"></i> Faculty of Medicine</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="resource-page">
+
+    <!-- Course Header -->
+    <div class="resource-header">
+      <h1>MME 325: Management and Entrepreneurship</h1>
+      <div class="meta">
+        <span><i class="fas fa-calendar-alt"></i> Semester 2 · Year 3</span>
+        <span><i class="fas fa-clock"></i> Credits: 12</span>
+        <span><i class="fas fa-user-md"></i> Sir. Erius Marius</span>
+      </div>
+    </div>
+
+    <!-- Primary Download Button -->
+    <div class="resource-section" style="padding: 10px 10px;">
+      <button class="occubtn" aria-label="Download all slides">
+        <a href="https://drive.google.com/uc?export=download&id=1DqWAVhlm_qlNs5ubD2w3KcjAcYV-9d1R">
+          <i class="fas fa-download"></i> Download MME all slides & resources
+        </a>
+      </button>
+    </div>
+
+    <!-- Secondary: Read online / specific notes (black text) -->
+    <div class="resource-section" style="padding: 10px 10px;">
+      <button class="occubtn2" aria-label="Access specific notes">
+        <a href="https://drive.google.com/drive/folders/1qfCYvGRoE3TvGFxSJdfgjRvg78G93Aa4?usp=sharing">
+          <i class="fas fa-folder-open"></i> Read online or download specific notes
+        </a>
+      </button>
+    </div>
+
+    <!-- Info placeholder -->
+    <div class="resource-section">
+      <div class="info-placeholder">
+        <i class="fas fa-info-circle"></i> Additional materials, case studies, and references will be added soon.
+      </div>
+    </div>
+
+    <!-- Upload Area (Admin) -->
+    <div class="upload-area">
+      <i class="fas fa-cloud-upload-alt"></i>
+      <p style="margin-bottom: 4px;">Administrators can upload new resources here.</p>
+      <span class="btn-upload">Upload (Admin)</span>
+    </div>
+
+    <!-- Back Link -->
+    <p style="margin-top: 28px; text-align: center;">
+      <a href="index.html#courses" class="back-link"><i class="fas fa-arrow-left"></i> Back to Courses</a>
+    </p>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 BMS HUB. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

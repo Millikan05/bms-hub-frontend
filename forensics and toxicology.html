@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>KIUT | MFT 326 – Forensics & Toxicology</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* === RESET & BASE (enhanced for mobile) === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fff0f5 0%, #e6f0fa 100%);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+		
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            width: 100%;
+        }
+
+        /* === HEADER (mobile-first) === */
+        header {
+            background: #fff;
+            border-bottom: 3px solid #c8102e;
+            padding: 10px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .logo-link {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #c8102e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .logo-link i {
+            font-size: 0.8rem;
+            color: #333;
+        }
+        .header-sub {
+            font-size: 0.75rem;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        /* === PAGE WRAP === */
+        .resource-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 12px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* === RESOURCE HEADER (mobile-tuned) === */
+        .resource-header {
+            background: #fff;
+            padding: 18px 16px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            margin-bottom: 20px;
+            border-left: 6px solid #c8102e;
+        }
+        .resource-header h1 {
+            font-size: 1.3rem;
+            margin: 0 0 4px;
+            color: #1a1a2e;
+            letter-spacing: -0.2px;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+        .resource-header .meta {
+            color: #666;
+            font-size: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 14px;
+        }
+        .resource-header .meta i {
+            color: #c8102e;
+            margin-right: 4px;
+            width: 16px;
+        }
+
+        /* === SECTIONS (mobile-first) === */
+        .resource-section {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            padding: 16px 14px;
+            margin-bottom: 18px;
+        }
+        .resource-section h3 {
+            font-size: 1rem;
+            margin: 0 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f2f5;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .resource-section h3 i {
+            color: #c8102e;
+        }
+        .resource-section h2 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin: 0 0 14px 0;
+            line-height: 1.3;
+        }
+
+        /* === BIG DOWNLOAD BUTTON (mobile-optimized) === */
+        .mmdbtn {
+            border-radius: 40px;
+            border: none;
+            background: #ffe4ec;
+            padding: 14px 16px;
+            transition: 0.25s ease;
+            display: inline-block;
+            box-shadow: 0 2px 6px rgba(200, 16, 46, 0.12);
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+        .mmdbtn:active {
+            transform: scale(0.97);
+            background: #d4e9ff;
+        }
+        .mmdbtn h1 {
+            font-size: 1rem;
+            margin: 0;
+            font-weight: 600;
+        }
+        .mmdbtn h1 a {
+            color: #1a1a2e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            word-break: break-word;
+        }
+        .mmdbtn h1 a i {
+            font-size: 1.1rem;
+        }
+
+        /* === "ADD ONE BUTTON" (mobile-optimized) — now with black text === */
+        .single-button-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 4px 0 2px;
+        }
+        .single-btn {
+            width: 100%;
+            border-radius: 40px;
+            background: #d4e9ff;          /* light blue, distinct from pink primary */
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #0b1a2b;               /* black text */
+            transition: 0.2s ease;
+            cursor: pointer;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            text-align: center;
+            line-height: 1.3;
+            min-height: 56px;
+        }
+        .single-btn:active {
+            transform: scale(0.97);
+            background: #bdd9f0;
+        }
+        .single-btn a {
+            color: #0b1a2b;               /* black text for link */
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            height: 100%;
+            flex-wrap: wrap;
+            word-break: break-word;
+        }
+        .single-btn i {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            color: #1f3a5e;
+        }
+
+        /* === UPLOAD AREA (mobile-tuned) === */
+        .upload-area {
+            margin-top: 8px;
+            padding: 16px 14px;
+            background: #f8faff;
+            border: 2px dashed #d0d7e6;
+            border-radius: 14px;
+            text-align: center;
+            color: #777;
+            font-size: 0.85rem;
+        }
+        .upload-area i {
+            font-size: 1.6rem;
+            display: block;
+            margin-bottom: 4px;
+            color: #c8102e;
+        }
+        .upload-area .btn-upload {
+            pointer-events: none;
+            opacity: 0.6;
+            display: inline-block;
+            padding: 5px 18px;
+            background: #c8102e;
+            color: #fff;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            border: none;
+        }
+
+        /* === BACK LINK (touch-friendly) === */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.15s;
+            padding: 8px 4px;
+        }
+        .back-link:active {
+            color: #c8102e;
+        }
+        .back-link i {
+            margin-right: 4px;
+        }
+
+        /* === FOOTER (mobile-first) === */
+        footer {
+            background: #1a1a2e;
+            color: #f0f0f0;
+            padding: 14px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 24px;
+            border-top: 3px solid #c8102e;
+        }
+        footer p {
+            margin: 0;
+            opacity: 0.8;
+            padding: 0 12px;
+        }
+
+        /* === MISC === */
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 12px; }
+
+        /* === TABLET & DESKTOP TWEAKS === */
+        @media (min-width: 640px) {
+            .container {
+                padding: 0 24px;
+            }
+            .resource-page {
+                padding: 24px 20px;
+            }
+            .resource-header {
+                padding: 22px 28px;
+            }
+            .resource-header h1 {
+                font-size: 1.7rem;
+            }
+            .resource-header .meta {
+                font-size: 0.95rem;
+                gap: 8px 20px;
+            }
+            .resource-section {
+                padding: 20px 24px;
+                margin-bottom: 24px;
+            }
+            .resource-section h2 {
+                font-size: 1.2rem;
+            }
+            .mmdbtn {
+                padding: 14px 28px;
+            }
+            .mmdbtn h1 {
+                font-size: 1.25rem;
+            }
+            .single-btn {
+                font-size: 1rem;
+                padding: 16px 24px;
+                max-width: 600px;
+                min-height: 64px;
+            }
+            .single-btn i {
+                font-size: 1.2rem;
+            }
+            .header-sub {
+                font-size: 0.9rem;
+            }
+            .logo-link {
+                font-size: 1.3rem;
+            }
+            .upload-area {
+                padding: 18px 20px;
+                font-size: 0.9rem;
+            }
+            .upload-area i {
+                font-size: 1.8rem;
+            }
+            footer {
+                font-size: 0.9rem;
+                padding: 18px 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .resource-page {
+                padding: 32px 24px;
+            }
+            .resource-header {
+                padding: 28px 36px;
+            }
+            .resource-header h1 {
+                font-size: 2rem;
+            }
+            .resource-section {
+                padding: 24px 32px;
+            }
+            .mmdbtn {
+                padding: 18px 32px;
+            }
+            .mmdbtn h1 {
+                font-size: 1.4rem;
+            }
+            .single-btn {
+                font-size: 1.1rem;
+                padding: 18px 32px;
+                min-height: 72px;
+            }
+        }
+
+        /* Extra small devices (very small phones) */
+        @media (max-width: 380px) {
+            .logo-link {
+                font-size: 0.95rem;
+            }
+            .header-sub {
+                font-size: 0.65rem;
+            }
+            .resource-header h1 {
+                font-size: 1.1rem;
+            }
+            .resource-header .meta {
+                font-size: 0.7rem;
+                gap: 2px 10px;
+            }
+            .mmdbtn h1 {
+                font-size: 0.85rem;
+            }
+            .single-btn {
+                font-size: 0.8rem;
+                padding: 12px 12px;
+                min-height: 48px;
+            }
+            .resource-section {
+                padding: 12px 10px;
+            }
+            .resource-page {
+                padding: 12px 8px;
+            }
+        }
+
+        /* Touch-friendly hover (no hover on touch) */
+        @media (hover: hover) {
+            .mmdbtn:hover {
+                background: #d4e9ff;
+                transform: scale(1.01);
+                box-shadow: 0 6px 14px rgba(0, 80, 200, 0.15);
+            }
+            .single-btn:hover {
+                background: #bdd9f0;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+            }
+            .back-link:hover {
+                color: #c8102e;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (responsive) -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <i class="fas fa-chevron-left"></i> BMS HUB
+            </a>
+            <span class="header-sub">Faculty of Medicine</span>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="resource-page">
+
+        <!-- Course Header -->
+        <div class="resource-header">
+            <h1>MFT 326: Forensic medicine and Toxicology</h1>
+            <div class="meta">
+                <span><i class="fas fa-calendar-alt"></i> Semester 2 · Year 3</span>
+                <span><i class="fas fa-clock"></i> Credits: 8</span>
+                <span><i class="fas fa-user"></i> Dr Ahmed Makata PhD, DFM(RCPA), FCPath(ECSA)</span>
+            </div>
+        </div>
+
+        <!-- BIG DOWNLOAD BUTTON -->
+        <div class="resource-section">
+            <button class="mmdbtn" aria-label="Download all slides">
+                <h1>
+                    <a href="https://drive.google.com/uc?export=download&id=1wH9XITgziQnk67D2wQyKKBUxGvBBsjs1">
+                        <i class="fas fa-download"></i> Download all Forensic & Toxicology slides (98 MB)
+                    </a>
+                </h1>
+            </button>
+        </div>
+
+        <!-- "ADD ONE BUTTON" – single specific button (black text) -->
+        <div class="resource-section">
+            <h2><i class="fas fa-folder-open" style="color:#c8102e;margin-right:8px;"></i> Specific notes – navigate, read online or download</h2>
+            <div class="single-button-wrap">
+                <button class="single-btn" aria-label="Choose specific slides">
+                    <a href="https://drive.google.com/drive/folders/1a7zcvSxsSKkhULwdSZNRwrBVPvRQw5Om?usp=sharing">
+                        <i class="fas fa-file-pdf"></i> 
+                        Click here to choose specific slides
+                    </a>
+                </button>
+            </div>
+            <p style="margin-top:12px;font-size:0.8rem;color:#888;text-align:center;line-height:1.4;">
+                <i class="fas fa-arrow-right" style="color:#c8102e;margin-right:6px;"></i> 
+                All other resources are included in the main ZIP above.
+            </p>
+        </div>
+
+        <!-- Upload area (admin) -->
+        <div class="upload-area">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Administrators can upload new resources here.</p>
+            <span class="btn-upload">Upload (Admin)</span>
+        </div>
+
+        <!-- Back link -->
+        <div class="text-center mt-2">
+            <a href="index.html#courses" class="back-link"><i class="fas fa-arrow-left"></i> Back to Courses</a>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 KIUT BMS Resource Hub. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

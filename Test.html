@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIUT BMS Student Resource Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f6f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        /* --- LINK COLOR: links with content are blue, non-links remain red --- */
+        a {
+            text-decoration: none;
+            color: #0056b3;  /* BLUE for all links (with content) */
+        }
+
+        /* Non-link text that should be red is explicitly styled red */
+        .course-card h4:not(:has(a)) {
+            color: #c8102e;  /* RED for text that is NOT a link */
+        }
+        /* Also ensure any generic text that should be red keeps red */
+        .course-card h4 {
+            /* base is red, but if it contains a link, the link overrides to blue */
+            color: #c8102e;
+        }
+        .course-card h4 a {
+            color: #0056b3;  /* BLUE for links inside h4 */
+        }
+        .course-card h4 a:hover {
+            text-decoration: underline;
+        }
+
+        /* Any other link that might appear – keep blue */
+        a {
+            color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3, h4 {
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid #c8102e;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #16213e;
+        }
+
+        .section-description {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background: white;
+            border-bottom: 3px solid #c8102e;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo img {
+            height: 180px;
+            width: auto;
+            border-radius: 8px;
+            max-width: 100%;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            margin-bottom: 0;
+            color: #c8102e;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .program {
+            font-size: 0.8rem;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .portal-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-osim {
+            background-color: #004080;
+            color: white;
+            border-radius: 20px;
+        }
+
+        .btn-osim:hover {
+            background-color: #002850;
+        }
+
+        .btn-tamsa {
+            background-color: #28a745;
+            color: white;
+            border-radius: 20px;
+        }
+
+        .btn-tamsa:hover {
+            background-color: #1e7e34;
+        }
+
+        .btn-primary {
+            background-color: #c8102e;
+            color: white;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #a00d24;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            border-radius: 20px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+            border-radius: 20px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1da851;
+        }
+
+        .btn-sm {
+            padding: 6px 15px;
+            font-size: 0.9rem;
+        }
+
+        /* --- Main Navigation (top) --- */
+        nav {
+            background-color: #1a1a2e;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .nav-container ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px 15px;
+        }
+
+        .nav-container ul li a {
+            color: #f0f0f0;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .nav-container ul li a:hover {
+            background-color: #c8102e;
+            color: white;
+        }
+
+        .nav-container ul li a i {
+            margin-right: 6px;
+        }
+
+        /* --- Marquee Section --- */
+        #marquee-section {
+            background-color: #e9ecef;
+            padding: 10px 0;
+            border-bottom: 2px solid #c8102e;
+        }
+
+        #marquee-section marquee {
+            color: #1a1a2e;
+            font-weight: 500;
+        }
+
+        /* --- Section Styling --- */
+        .section {
+            padding: 40px 0;
+        }
+
+        .section-alt {
+            background-color: #ffffff;
+        }
+
+        /* --- Home Section --- */
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .home-content h2 {
+            font-size: 2.5rem;
+            border-bottom: none;
+            display: block;
+        }
+
+        .home-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .quick-links .btn {
+            padding: 12px 25px;
+        }
+
+        .home-image {
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .home-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Courses Section --- */
+        .year-group {
+            margin-bottom: 50px;
+        }
+
+        .year-group h3 {
+            background-color: #16213e;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+        }
+
+        .year-group h3 i {
+            margin-right: 10px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 22px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .course-card h4 {
+            color: #c8102e;   /* RED for non-link text */
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .course-card h4 a {
+            color: #0056b3;   /* BLUE for links with content */
+        }
+
+        .course-card h4 a:hover {
+            text-decoration: underline;
+        }
+
+        .course-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+
+        .semester {
+            display: inline-block;
+            background-color: #e9ecef;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #333;
+            padding: 4px 14px;
+            border-radius: 20px;
+            align-self: flex-start;
+        }
+
+        /* --- News Section --- */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #c8102e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .news-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .news-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        /* --- Schedules Section --- */
+        .schedule-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .schedule-card {
+            background: #f8f9fa;
+            padding: 35px 25px;
+            text-align: center;
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            flex: 1 1 250px;
+            max-width: 320px;
+            transition: transform 0.2s;
+        }
+
+        .schedule-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .schedule-card i {
+            font-size: 2.8rem;
+            color: #c8102e;
+            margin-bottom: 15px;
+        }
+
+        .schedule-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .schedule-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 18px;
+        }
+
+        /* --- Contacts Section --- */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-group {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .contact-group h3 {
+            border-bottom: 2px solid #c8102e;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .contact-table {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            gap: 5px;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .role {
+            font-weight: 600;
+            color: #16213e;
+            flex-basis: 35%;
+            min-width: 120px;
+        }
+
+        .name {
+            flex-basis: 30%;
+            min-width: 100px;
+        }
+
+        .phone, .email {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .phone i, .email i {
+            margin-right: 5px;
+            color: #c8102e;
+        }
+
+        /* --- TAMSA Section --- */
+        .tamsa-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .tamsa-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border-top: 4px solid #28a745;
+            flex: 1 1 280px;
+            max-width: 350px;
+        }
+
+        .tamsa-card h3 {
+            color: #28a745;
+            margin-bottom: 12px;
+        }
+
+        .tamsa-card p {
+            margin-bottom: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+        }
+
+        .social-links a {
+            color: #1a1a2e;
+            font-size: 1.6rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #28a745;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #1a1a2e;
+            color: #f0f0f0;
+            padding: 40px 0;
+            margin-top: 30px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px 30px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-copy {
+            font-size: 0.9rem;
+            color: #888;
+            border-top: 1px solid #333;
+            padding-top: 18px;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .home-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo img {
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .portal-buttons {
+                width: 100%;
+            }
+
+            .portal-buttons .btn {
+                flex: 1;
+                justify-content: center;
+                font-size: 0.85rem;
+                padding: 8px 12px;
+            }
+
+            .nav-container ul {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 2px;
+            }
+
+            .nav-container ul li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-container ul li a {
+                display: block;
+                padding: 10px 0;
+                font-size: 0.9rem;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .role, .name {
+                flex-basis: 100%;
+                min-width: auto;
+            }
+
+            .schedule-card {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .tamsa-card {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .logo {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .logo img {
+                height: 100px;
+            }
+
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .home-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .quick-links .btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+
+            .section {
+                padding: 30px 0;
+            }
+
+            .year-group h3 {
+                font-size: 1.2rem;
+                padding: 10px 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 10px 0;
+            }
+
+            .logo img {
+                height: 80px;
+            }
+
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+
+            .header-right {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .portal-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .portal-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .home-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .course-card {
+                padding: 16px;
+            }
+
+            .course-card h4 {
+                font-size: 1rem;
+            }
+
+            .news-card {
+                padding: 18px;
+            }
+
+            .contact-group {
+                padding: 18px;
+            }
+
+            .schedule-card {
+                padding: 25px 18px;
+            }
+
+            .tamsa-card {
+                padding: 22px;
+            }
+
+            .footer-links {
+                gap: 10px 20px;
+            }
+
+            .footer-links a {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="logi.png" alt="KIUT Logo">
+                <div>
+                    <h1>BMS Resource Hub</h1>
+                    <p class="subtitle">Faculty of Medicine & Pharmaceutical Sciences</p>
+                    <p class="program">Bachelor of Medicine and Surgery (BMS) Resource Hub</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="portal-buttons">
+                    <a href="https://osim.kiut.ac.tz/" target="_blank" class="btn btn-osim"><i class="fas fa-external-link-alt"></i> OSIM Portal</a>
+                    <a href="#tamsa" class="btn btn-tamsa"><i class="fas fa-users"></i> TAMSA KIUT</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container nav-container">
+            <ul>
+                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#courses"><i class="fas fa-book-open"></i> Courses</a></li>
+                <li><a href="#news"><i class="fas fa-newspaper"></i> News</a></li>
+                <li><a href="#schedules"><i class="fas fa-calendar-alt"></i> Schedules</a></li>
+                <li><a href="#contacts"><i class="fas fa-address-book"></i> Contacts</a></li>
+                <li><a href="#tamsa"><i class="fas fa-user-md"></i> TAMSA</a></li>
+                <li><a href="about.html"><i class="fas fa-users-cog"></i> About Developers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Marquee Section -->
+        <section id="marquee-section">
+            <div class="container">
+                <marquee behavior="scroll" direction="left" scrollamount="8">
+                    <i class="fas fa-bullhorn" style="margin-right: 15px;"></i> Welcome to the KIUT BMS Academic Resource Hub! Stay updated with the latest announcements, schedules, and academic resources. 
+                    <i class="fas fa-calendar-check" style="margin-left: 30px; margin-right: 15px;"></i> New Semester schedules are now available for Year 1 to Year 5.
+                    <i class="fas fa-link" style="margin-left: 30px; margin-right: 15px;"></i> Join the official KIUT BMS WhatsApp group for real-time communication.
+                </marquee>
+            </div>
+        </section>
+
+        <!-- Home Section -->
+        <section id="home" class="section">
+            <div class="container home-grid">
+                <div class="home-content">
+                    <h2>Welcome to the BMS Resource Hub</h2>
+                    <p>This platform is designed to centralize academic resources, announcements, and important contacts for all students pursuing the Bachelor of Medicine and Surgery at Kampala International University in Tanzania.</p>
+                    <p>Navigate through the sections using the menu above to find course materials, news, schedules, and contact information for your Course Representatives and faculty.</p>
+                    <div class="quick-links">
+                        <a href="#courses" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Explore Courses</a>
+                        <a href="https://osim.kiut.ac.tz/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Go to OSIM</a>
+                        <a href="https://chat.whatsapp.com/YOUR_GROUP_LINK_HERE" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Group</a>
+                    </div>
+                </div>
+                <div class="home-image">
+                    <img src="welcome.gif" alt="KIUT Medicine">
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="courses" class="section section-alt">
+            <div class="container">
+                <h2><i class="fas fa-graduation-cap"></i> Academic Courses by Year</h2>
+                <p class="section-description">Explore the curriculum for each year of the BMS program. Click on a course to see more details (content will be linked from the curriculum).</p>
+                
+                <!-- Year 1 -->
+                <div class="year-group">
+                    <h3><i class="fas fa-arrow-right"></i> Year 1</h3>
+                    <div class="course-grid">
+                        <div class="course-card">
+                            <h4><a href="anatomy1.html">MAN 111: Gross Anatomy and Histology</a></h4>
+                            <p>Detailed histology and macroscopic anatomy of body structures, skeleton, muscles, and innervation.</p>
+                            <span class="semester">Semester I</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="biochemistry1.html">MBM 112: Biochemistry and Molecular Biology I</a></h4>
+                            <p>Cell biology, acid-base balance, carbohydrate, protein, lipid, and nucleotide chemistry.</p>
+                            <span class="semester">Semester I</span>
+                        </div> 
+                        <div class="course-card">
+                            <h4>MIC 113: ICT & Communication Skills</h4>
+                            <p>Psychology of study, communication skills, reading, oral and writing skills, and computer applications.</p>
+                            <span class="semester">Semester I</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MPE 114: Professionalism & Ethics in Health and Research</h4>
+                            <p>Introduction to concepts and principles of ethics, integrity, and professional behavior.</p>
+                            <span class="semester">Semester I</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MPH 115: Physiology I</h4>
+                            <p>Body fluids, excitable tissue, blood, excretory system, circulation, and respiration.</p>
+                            <span class="semester">Semester I</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MED 121: Embryology and Dissection</h4>
+                            <p>Gametogenesis, fertilization, embryogenesis, systemic embryology, and neuroanatomy.</p>
+                            <span class="semester">Semester II</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MBS 122: Behavioural Science</h4>
+                            <p>Psychology, medical sociology, and anthropology. Personality, human learning, memory, death and dying.</p>
+                            <span class="semester">Semester II</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MPH 124: Physiology II</h4>
+                            <p>Digestive system, metabolism, endocrine system, reproductive physiology, and central nervous system.</p>
+                            <span class="semester">Semester II</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="biochemistry2.html">MBM 125: Biochemistry and Molecular Biology II</a></h4>
+                            <p>Lipid, amino acid, heme metabolism, molecular biology, cancer biology, and signal transduction.</p>
+                            <span class="semester">Semester II</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Year 2 -->
+                <div class="year-group">
+                    <h3><i class="fas fa-arrow-right"></i> Year 2</h3>
+                    <div class="course-grid">
+                        <div class="course-card">
+                            <h4><a href="microbiology.html">MMI 211: Microbiology and Immunology</a></h4>
+                            <p>Bacteriology, virology, mycology, and immunology. Structure, physiology, genetics, and pathogenesis.</p>
+                            <span class="semester">Semester III</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="parasitology.html">MPE 212: Parasitology & Entomology</a></h4>
+                            <p>Morphology, classification, clinical features, pathogenesis, and laboratory diagnosis of parasites and vectors.</p>
+                            <span class="semester">Semester III</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="epidemiology.html">MEB 213: Epidemiology and Biostatistics</a></h4>
+                            <p>Epidemiological principles, statistical measures of health, determinants of disease, and biostatistics.</p>
+                            <span class="semester">Semester III</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MHD 214: Health Systems & Development</h4>
+                            <p>Health care system evaluation, development studies, health policies, and district health services.</p>
+                            <span class="semester">Semester III</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MCH 123: Introduction to Community Health</h4>
+                            <p>General principles of community health, COBERMS, disaster preparedness, and community drug use.</p>
+                            <span class="semester">Semester III</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MCH 221: Community Health Practice</h4>
+                            <p>Community organization, assessment, diagnosis, food security, nutritional disorders, and environmental health.</p>
+                            <span class="semester">Semester IV</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="pharmacology.html">MCP 222: Basic and Clinical Pharmacology</a></h4>
+                            <p>Pharmacodynamics, pharmacokinetics, drug interactions, and pharmacology of major drug classes.</p>
+                            <span class="semester">Semester IV</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="pathology.html">MPA 223: Pathology</a></h4>
+                            <p>General and systemic pathology, immunopathology, chemical pathology, and disease processes.</p>
+                            <span class="semester">Semester IV</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MPP 224: Psychopathology</h4>
+                            <p>Basic psychopathological concepts, building blocks for understanding psychiatric symptomatology.</p>
+                            <span class="semester">Semester IV</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="hematology.html">MHB 225: Hematology and Blood Transfusion</a></h4>
+                            <p>Blood disorders, identification, investigation, management, and application of blood transfusion principles.</p>
+                            <span class="semester">Semester IV</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Year 3 -->
+                <div class="year-group">
+                    <h3><i class="fas fa-arrow-right"></i> Year 3</h3>
+                    <div class="course-grid">
+                        <div class="course-card">
+                            <h4>MMD 311: Management of Diseases</h4>
+                            <p>Principles of history taking, physical examination, and scientific basis of diagnosis and management of clinical conditions.</p>
+                            <span class="semester">Semester V</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="Radiology.html">MRI 312: Radiology and Imaging</a></h4>
+                            <p>Principles of medical imaging, different modalities, utilization in disease diagnosis, and interpretation.</p>
+                            <span class="semester">Semester V</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MPE 321: Professionalism and Ethics in Medical Practice</h4>
+                            <p>Ethical and legal issues in medical decision-making, structure and function of law in relation to medicine.</p>
+                            <span class="semester">Semester VI</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MDC 322: Communicable & Non Communicable Diseases Control</h4>
+                            <p>Knowledge and skills of disease control at the community level, magnitude, and management approaches.</p>
+                            <span class="semester">Semester VI</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MRP 323: Research Project Development</h4>
+                            <p>Research methodology, proposal development stages, and preparation of a research proposal.</p>
+                            <span class="semester">Semester VI</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="Occupational medicine.html">MOM 324: Occupational Medicine</a></h4>
+                            <p>Causes, prevention, recognition, and management of occupational health hazards.</p>
+                            <span class="semester">Semester VI</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MME 325: Management and Entrepreneurship</h4>
+                            <p>Principles of management, health sector economics, financial management, and human resource management.</p>
+                            <span class="semester">Semester VI</span>
+                        </div>
+                        <div class="course-card">
+                            <h4><a href="forensics and toxicology.html">MFT 326: Forensic Medicine and Toxicology</a></h4>
+                            <p>Medico-legal matters, court procedures, report writing, death certification, and toxicology.</p>
+                            <span class="semester">Semester VI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Year 4 -->
+                <div class="year-group">
+                    <h3><i class="fas fa-arrow-right"></i> Year 4</h3>
+                    <div class="course-grid">
+                        <div class="course-card">
+                            <h4>MPM 421: Psychiatry and Mental Health</h4>
+                            <p>Clinical knowledge, attitudes, and skills in assessing, diagnosing, and managing psychiatric disorders.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MAC 422: Anaesthesia and Critical Care Medicine</h4>
+                            <p>Basic principles and practice of safe anaesthesia, resuscitation, and critical care medicine.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MOP 423: Ophthalmology</h4>
+                            <p>Concepts of blindness, low vision, and diagnosis and management of common ocular conditions.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MEM 424: Emergency Medicine</h4>
+                            <p>Basic principles of management of common emergency conditions in adults and children.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MGS 411: General Surgery, Orthopedic Trauma and Neurosurgery I</h4>
+                            <p>Evaluation, diagnosis, and management of common surgical conditions, with a focus on interdisciplinary approaches.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MIM 412: Internal Medicine I</h4>
+                            <p>Essential knowledge and skills to recognise, assess, and manage common medical conditions.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MOG 413: Reproductive Health, Obstetrics and Gynaecology I</h4>
+                            <p>Necessary knowledge and skills to assess, identify, and manage normal processes and disease conditions in RH, OBGY.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MPC 414: Paediatrics and Child Health I</h4>
+                            <p>Comprehensive knowledge and professional skills to recognise, assess, and manage childhood illnesses.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MOT 425: Otorhinolaryngology</h4>
+                            <p>Basic principles of ENT, use of medical equipment, and interpretation of laboratory and imaging results.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MON 426: Orthopaedics, Traumatology and Neurosurgery</h4>
+                            <p>Management of common conditions in orthopaedics, traumatology, and neurosurgery.</p>
+                            <span class="semester">Semester VII & VIII</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Year 5 -->
+                <div class="year-group">
+                    <h3><i class="fas fa-arrow-right"></i> Year 5</h3>
+                    <div class="course-grid">
+                        <div class="course-card">
+                            <h4>MGS 511: General Surgery, Orthopedic Trauma, Neurosurgery & Paediatric Surgery II</h4>
+                            <p>Advanced management of surgical diseases, with enhanced clinical skills and decision-making.</p>
+                            <span class="semester">Semester IX & X</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MIM 512: Internal Medicine II</h4>
+                            <p>Advanced knowledge, basic clinical skills, and investigative approaches for managing common medical diseases.</p>
+                            <span class="semester">Semester IX & X</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MOG 521: Reproductive Health, Obstetrics and Gynaecology II</h4>
+                            <p>Advanced competencies in managing obstetric, reproductive health, and gynaecological conditions.</p>
+                            <span class="semester">Semester IX & X</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MPC 522: Paediatrics and Child Health II</h4>
+                            <p>Advanced management of childhood illnesses and health problems of newborns, infants, children, and adolescents.</p>
+                            <span class="semester">Semester IX & X</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MCH 513: Community Health</h4>
+                            <p>Fieldwork and application of community health principles in a practical setting.</p>
+                            <span class="semester">Semester IX & X</span>
+                        </div>
+                        <div class="course-card">
+                            <h4>MRR 523: Research Data Analysis and Reporting</h4>
+                            <p>Data analysis methods and report writing for research projects.</p>
+                            <span class="semester">Semester IX & X</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="section">
+            <div class="container">
+                <h2><i class="fas fa-newspaper"></i> Latest News & Announcements</h2>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-date">📅June 7, 2026</div>
+                        <h3>Research Proposal Hearing Scheduled</h3>
+                        <p>The Directorate of Postgraduate Studies at KIUT invites staff, students, researchers, and the academic community to attend the Research Proposal Hearing from 24–26 June 2026 at 10:00 a.m. in the University Board Room. Participants are encouraged to attend and provide academic support and feedback to presenters.</p>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-date">📅 June 22, 2026</div>
+                        <h3>📝CAT II Examination Timetable was released.</h3>
+                        <p>The CAT II Examination Timetable has been uploaded and is now available for students. 📚 Examinations will commence from 20th July to 24th July 2026. Students are advised to check their schedules and prepare accordingly. ✅</p>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-date">📅 June 19, 2026</div>
+                        <h3>⚠️BMS 3.2 Students Raise Concerns Over CAT I Examination</h3>
+                        <p>Some BMS 3.2 students have expressed concerns regarding the Management and Entrepreneurship CAT I examination conducted on Friday. Students claim that certain questions covered content for which no lecture notes, reading materials, or reference books had been provided. Discussions are reportedly underway to present these concerns to the relevant university authorities.</p>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-date">Ad</div>
+                        <h3>Advertise Here</h3>
+                        <p></p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedules Section -->
+        <section id="schedules" class="section section-alt">
+            <div class="container">
+                <h2><i class="fas fa-calendar-alt"></i> Schedules</h2>
+                <p class="section-description">Access weekly lecture timetables and clinical rotation schedules for the current academic year.</p>
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <i class="fas fa-calendar-week"></i>
+                        <h3>Weekly Timetable</h3>
+                        <p>Download or view the weekly lecture and practical schedules for each year.</p>
+                        <a href="#" class="btn btn-sm btn-primary">View Timetables</a>
+                    </div>
+                    <div class="schedule-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Clinical Rotations</h3>
+                        <p>Check the schedule for your clinical rotations in Internal Medicine, Surgery, Paediatrics, etc.</p>
+                        <a href="#" class="btn btn-sm btn-primary">View Rotations</a>
+                    </div>
+                    <div class="schedule-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Academic Calendar</h3>
+                        <p>Stay on track with the full university academic calendar for 2024/2025.</p>
+                        <a href="#" class="btn btn-sm btn-primary">View Calendar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section id="contacts" class="section">
+            <div class="container">
+                <h2><i class="fas fa-address-book"></i> Important Contacts</h2>
+                
+                <div class="contacts-grid">
+                    <!-- Course Representatives -->
+                    <div class="contact-group">
+                        <h3><i class="fas fa-user-graduate"></i> Course Representatives (CRs)</h3>
+                        <div class="contact-table">
+                            <div class="contact-item">
+                                <span class="role">Year 1 CR</span>
+                                <span class="name">[Name to be added]</span>
+                                <span class="phone"><i class="fas fa-phone"></i> [Phone Number]</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="role">Year 2 CR</span>
+                                <span class="name">[Name to be added]</span>
+                                <span class="phone"><i class="fas fa-phone"></i> [Phone Number]</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="role">Year 3 CR</span>
+                                <span class="name">[Name to be added]</span>
+                                <span class="phone"><i class="fas fa-phone"></i> [Phone Number]</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="role">Year 4 CR</span>
+                                <span class="name">[Name to be added]</span>
+                                <span class="phone"><i class="fas fa-phone"></i> [Phone Number]</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="role">Year 5 CR</span>
+                                <span class="name">[Name to be added]</span>
+                                <span class="phone"><i class="fas fa-phone"></i> [Phone Number]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Head of Faculty Members -->
+                    <div class="contact-group">
+                        <h3><i class="fas fa-chalkboard-teacher"></i> Head of Faculty Members</h3>
+                        <div class="contact-table">
+                            <div class="contact-item">
+                                <span class="role">Dean, Faculty of Medicine</span>
+                                <span class="name">Prof. Andrew B M Swai</span>
+                                <span class="phone"><i class="fas fa-phone"></i> +255-754223972</span>
+                                <span class="email"><i class="fas fa-envelope"></i> a.swai@kiut.ac.tz</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="role">Head, Department of Community Medicine</span>
+                                <span class="name">[Name to be added]</span>
+                                <span class="phone"><i class="fas fa-phone"></i> [Phone Number]</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="role">Head, Department of Surgery</span>
+                                <span class="name">Prof. Joseph F. Kahamba</span>
+                                <span class="phone"><i class="fas fa-phone"></i> [Phone Number]</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="role">Head, Department of Internal Medicine</span>
+                                <span class="name">Prof. Michael E. Massawe</span>
+                                <span class="phone"><i class="fas fa-phone"></i> [Phone Number]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAMSA KIUT Section -->
+        <section id="tamsa" class="section section-alt">
+            <div class="container">
+                <h2><i class="fas fa-users"></i> TAMSA KIUT Section</h2>
+                <p class="section-description">Stay connected with the Tanzanian Medical Students' Association (TAMSA) at KIUT. This section provides updates on activities, events, and important announcements from the TAMSA chapter.</p>
+                
+                <div class="tamsa-grid">
+                    <div class="tamsa-card">
+                        <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
+                        <p>Upcoming TAMSA General Assembly Meeting. All members are required to attend.</p>
+                        <p><strong>Date:</strong> April 25, 2025</p>
+                        <p><strong>Venue:</strong> Faculty Lecture Hall</p>
+                    </div>
+                    <div class="tamsa-card">
+                        <h3><i class="fas fa-hand-holding-heart"></i> Upcoming Events</h3>
+                        <p><strong>Health Camp:</strong> Community screening and health education outreach in Dar es Salaam.</p>
+                        <p><strong>Date:</strong> May 5, 2025</p>
+                        <a href="#" class="btn btn-sm btn-primary">Read More</a>
+                    </div>
+                    <div class="tamsa-card">
+                        <h3><i class="fas fa-link"></i> Connect with TAMSA</h3>
+                        <p>Follow TAMSA KIUT on social media for the latest updates.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-logo">
+                <p>Kampala International University in Tanzania</p>
+                <p>Faculty of Medicine and Pharmaceutical Sciences</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#courses">Courses</a>
+                <a href="#news">News</a>
+                <a href="#schedules">Schedules</a>
+                <a href="#contacts">Contacts</a>
+                <a href="#tamsa">TAMSA</a>
+                <a href="https://osim.kiut.ac.tz/" target="_blank">OSIM</a>
+            </div>
+            <div class="footer-copy">
+                <p>&copy; 2025 KIUT BMS Resource Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+```
