@@ -1,727 +1,2488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="google-site-verification" content="pV6THwUSi-wKY1RNpk6ww99G7rtz3mRvqhxjlJOwAfE" />"
-  <title>BMS HUB</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="google-site-verification" content="pV6THwUSi-wKY1RNpk6ww99G7rtz3mRvqhxjlJOwAfE">
+
+  <title>BMS HUB | BMS Student Resources</title>
+  <meta name="description" content="BMS HUB — academic resources, courses, notes, schedules, announcements and BMS AI for Bachelor of Medicine and Surgery students.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <style>
-    :root{
-      --bg:#f0f4fc;
-      --surface:#ffffff;
-      --text:#142335;
-      --muted:#4e627a;
-      --primary:#b71c2c;
-      --primary-light:#e53946;
-      --nav:#0f1a2b;
-      --blue:#0a5b9e;
-      --green:#1e8b3c;
-      --border:#dfe7f0;
-      --shadow:0 12px 30px rgba(0, 20, 40, 0.08);
-      --radius:20px;
-      --gradient-hero:linear-gradient(145deg, #f0f5fe 0%, #ffffff 100%);
-      --card-hover:translateY(-5px) scale(1.01);
-      --header-height: 0px; /* set by JS */
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:'Inter','Roboto',sans-serif;
-      line-height:1.6;
-      color:var(--text);
-      background:var(--bg);
-      overflow-x:hidden;
-    }
-    a{text-decoration:none;color:var(--blue)}
-    img{max-width:100%;display:block}
-    ul{list-style:none}
-    .container{width:min(1200px,92%);margin:0 auto}
-    .skip-link{
-      position:absolute;left:-9999px;top:auto;
-    }
-    .skip-link:focus{
-      left:12px;top:12px;z-index:3000;background:#fff;padding:10px 14px;border-radius:10px;
-      box-shadow:var(--shadow);
+    :root {
+      --bg: #f0f4fc;
+      --surface: #ffffff;
+      --text: #142335;
+      --muted: #4e627a;
+      --primary: #b71c2c;
+      --primary-light: #e53946;
+      --nav: #0f1a2b;
+      --blue: #0a5b9e;
+      --green: #1e8b3c;
+      --border: #dfe7f0;
+      --shadow: 0 12px 30px rgba(0, 20, 40, 0.08);
+      --radius: 20px;
+      --gradient-hero: linear-gradient(145deg, #f0f5fe 0%, #ffffff 100%);
+      --card-hover: translateY(-5px) scale(1.01);
+      --header-height: 0px;
     }
 
-    /* ----- header ----- */
-    header{
-      background:var(--surface);
-      border-bottom:4px solid var(--primary);
-      box-shadow:0 4px 20px rgba(183, 28, 44, 0.12);
-      position:sticky;
-      top:0;
-      z-index:1200;
-      backdrop-filter:blur(2px);
-    }
-    .header-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding:14px 0;
-    }
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      min-width:0;
-      flex:1 1 auto;
-    }
-    .logo img{
-      width:76px;height:76px;object-fit:contain;border-radius:50%;
-      background:#fff;padding:4px;box-shadow:0 4px 12px rgba(0,0,0,0.08);
-      flex:0 0 auto;
-      transition:transform 0.2s;
-    }
-    .logo img:hover{transform:scale(1.04);}
-    .logo-text{min-width:0;flex:1 1 auto}
-    .logo-text h1{
-      font-size:1.7rem;
-      background:linear-gradient(135deg, var(--primary), #ff4d5a);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-      line-height:1.15;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      font-weight:800;
-      letter-spacing:-0.5px;
-    }
-    .subtitle,.program{font-size:.92rem;color:var(--muted);font-weight:500}
-    .program{font-weight:400;color:#5b6f89}
-    .top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:10px 20px;border-radius:999px;border:0;cursor:pointer;
-      font-weight:600;font-size:.95rem;transition:.2s ease;white-space:nowrap;
-      box-shadow:0 4px 8px rgba(0,0,0,0.02);
-    }
-    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,0.08);}
-    .btn-osim{background:linear-gradient(135deg,#003366,#0a4b8a);color:#fff}
-    .btn-tamsa{background:linear-gradient(135deg,#1e7e34,#2da84b);color:#fff}
-    .btn-primary{background:var(--primary);color:#fff}
-    .btn-secondary{background:#6c7a8d;color:#fff}
-    .btn-whatsapp{background:#25d366;color:#fff}
-    .icon-btn{
-      width:48px;height:48px;border-radius:16px;background:var(--nav);color:#fff;
-      display:none;align-items:center;justify-content:center;border:0;cursor:pointer;
-      box-shadow:0 6px 14px rgba(0,0,0,0.1);
-      flex:0 0 auto;
-      transition:0.2s;
-    }
-    .icon-btn:hover{background:var(--primary);}
-    .search-bar-wrap{padding:0 0 12px;}
-    .search-bar{
-      display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2eaf2;
-      border-radius:999px;padding:8px 18px;box-shadow:0 4px 14px rgba(0, 20, 40, 0.04);
-      transition:box-shadow 0.2s;
-    }
-    .search-bar:focus-within{box-shadow:0 4px 20px rgba(183, 28, 44, 0.10);border-color:var(--primary-light);}
-    .search-bar i{color:var(--muted);font-size:1.1rem}
-    .search-bar input{
-      border:0;outline:0;background:transparent;width:100%;font-size:1rem;color:var(--text);
-      font-weight:500;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* ----- navigation ----- */
-    nav{
-      background:rgba(15, 26, 43, 0.94);
-      backdrop-filter:blur(10px);
-      color:#fff;
-      position:sticky;
-      top:var(--header-height);
-      z-index:1100;
-      border-bottom:2px solid rgba(255,255,255,0.06);
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 160px;
     }
-    .nav-inner{
-      display:flex;align-items:center;justify-content:center;
-      gap:16px;padding:12px 0;flex-wrap:wrap;
+
+    body {
+      font-family: "Inter", "Roboto", sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
     }
-    .nav-inner a{
-      color:#eef2f8;font-weight:600;padding:8px 16px;border-radius:40px;
-      transition:.2s ease;display:inline-flex;align-items:center;gap:8px;
-      letter-spacing:0.2px;
+
+    a {
+      text-decoration: none;
+      color: var(--blue);
     }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    .container {
+      width: min(1200px, 92%);
+      margin: 0 auto;
+    }
+
+    /* =========================================================
+       AD / MONETIZATION AREAS
+       These are ready for AdSense or another ad provider later.
+       ========================================================= */
+
+    .ad-slot {
+      width: 100%;
+      min-height: 90px;
+      margin: 18px auto;
+      border: 1px dashed #cbd6e4;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #7b8da3;
+      font-size: 0.78rem;
+      letter-spacing: 0.4px;
+      overflow: hidden;
+    }
+
+    .ad-slot span {
+      opacity: 0.75;
+    }
+
+    .ad-top {
+      min-height: 90px;
+      max-width: 970px;
+    }
+
+    .ad-between {
+      min-height: 100px;
+      max-width: 970px;
+    }
+
+    .ad-footer {
+      min-height: 90px;
+      max-width: 970px;
+    }
+
+    /* =========================================================
+       SKIP LINK
+       ========================================================= */
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+    }
+
+    .skip-link:focus {
+      left: 12px;
+      top: 12px;
+      z-index: 3000;
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    header {
+      background: var(--surface);
+      border-bottom: 4px solid var(--primary);
+      box-shadow: 0 4px 20px rgba(183, 28, 44, 0.12);
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      backdrop-filter: blur(2px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .logo img {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #fff;
+      padding: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      flex: 0 0 auto;
+      transition: transform 0.2s;
+    }
+
+    .logo img:hover {
+      transform: scale(1.04);
+    }
+
+    .logo-text {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .logo-text h1 {
+      font-size: 1.7rem;
+      background: linear-gradient(135deg, var(--primary), #ff4d5a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle,
+    .program {
+      font-size: 0.92rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .program {
+      font-weight: 400;
+      color: #5b6f89;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .btn-osim {
+      background: linear-gradient(135deg,#003366,#0a4b8a);
+      color: #fff;
+    }
+
+    .btn-tamsa {
+      background: linear-gradient(135deg,#1e7e34,#2da84b);
+      color: #fff;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #6c7a8d;
+      color: #fff;
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: #fff;
+    }
+
+    .icon-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: var(--nav);
+      color: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+      flex: 0 0 auto;
+      transition: 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--primary);
+    }
+
+    /* =========================================================
+       SEARCH
+       ========================================================= */
+
+    .search-bar-wrap {
+      padding: 0 0 12px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid #e2eaf2;
+      border-radius: 999px;
+      padding: 7px 8px 7px 18px;
+      box-shadow: 0 4px 14px rgba(0, 20, 40, 0.04);
+      transition: 0.2s;
+    }
+
+    .search-bar:focus-within {
+      box-shadow: 0 4px 20px rgba(183, 28, 44, 0.12);
+      border-color: var(--primary-light);
+    }
+
+    .search-bar > i {
+      color: var(--muted);
+      font-size: 1.05rem;
+      flex: 0 0 auto;
+    }
+
+    .search-bar input {
+      border: 0;
+      outline: 0;
+      background: transparent;
+      width: 100%;
+      font-size: 1rem;
+      color: var(--text);
+      font-weight: 500;
+      min-width: 0;
+    }
+
+    /* NEW SEARCH BUTTON */
+
+    .search-button {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: 0.2s ease;
+      box-shadow: 0 5px 12px rgba(183,28,44,0.25);
+    }
+
+    .search-button:hover {
+      background: var(--primary-light);
+      transform: scale(1.05);
+    }
+
+    .search-button:active {
+      transform: scale(0.95);
+    }
+
+    .search-status {
+      display: none;
+      margin: 10px 4px 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .search-status.show {
+      display: block;
+    }
+
+    /* =========================================================
+       INSTANT SEARCH RESULT PANEL
+       ========================================================= */
+
+    .instant-search-panel {
+      display: none;
+      margin-top: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 16px 35px rgba(0, 20, 40, 0.14);
+      overflow: hidden;
+      position: relative;
+      z-index: 1300;
+    }
+
+    .instant-search-panel.show {
+      display: block;
+    }
+
+    .instant-search-head {
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #f8faff, #eef4fb);
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .instant-search-head strong {
+      color: var(--primary);
+    }
+
+    .instant-search-list {
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .instant-search-result {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid #edf1f6;
+      background: #fff;
+      padding: 13px 16px;
+      text-align: left;
+      cursor: pointer;
+      display: block;
+      transition: background 0.15s ease;
+      color: var(--text);
+    }
+
+    .instant-search-result:last-child {
+      border-bottom: 0;
+    }
+
+    .instant-search-result:hover,
+    .instant-search-result:focus {
+      background: #fff4f5;
+      outline: none;
+    }
+
+    .instant-search-result-title {
+      display: block;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 3px;
+      line-height: 1.35;
+    }
+
+    .instant-search-result-meta {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+
+    .instant-search-empty {
+      padding: 18px 16px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .search-button:focus-visible {
+      outline: 3px solid rgba(183, 28, 44, 0.25);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .instant-search-list {
+        max-height: 240px;
+      }
+
+      .instant-search-result {
+        padding: 12px 14px;
+      }
+    }
+
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
+
+    nav {
+      background: rgba(15, 26, 43, 0.94);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      position: sticky;
+      top: var(--header-height);
+      z-index: 1100;
+      border-bottom: 2px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 12px 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-inner a {
+      color: #eef2f8;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 40px;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.2px;
+    }
+
     .nav-inner a:hover,
-    .nav-inner a.active{
-      background:var(--primary);
-      color:#fff;
-      box-shadow:0 4px 12px rgba(183,28,44,0.3);
+    .nav-inner a.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(183,28,44,0.3);
     }
 
-    /* mobile sidebar */
-    .mobile-sidebar{
-      position:fixed;inset:0 auto 0 0;width:min(84vw,320px);background:#fff;z-index:2500;
-      transform:translateX(-100%);transition:transform .25s ease;box-shadow:var(--shadow);
-      display:flex;flex-direction:column;
-    }
-    .mobile-sidebar.open{transform:translateX(0)}
-    .sidebar-head{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:18px 20px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#fafcff,#f0f5fe);
-    }
-    .sidebar-links{padding:14px;display:flex;flex-direction:column;gap:6px;overflow:auto}
-    .sidebar-links a{
-      padding:14px 16px;border-radius:16px;color:var(--text);font-weight:600;
-      display:flex;align-items:center;gap:12px;transition:0.15s;
-    }
-    .sidebar-links a:hover{background:var(--primary);color:#fff;transform:translateX(4px);}
-    .backdrop{
-      position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:2400;display:none;
-      backdrop-filter:blur(2px);
-    }
-    .backdrop.show{display:block}
+    /* =========================================================
+       MOBILE SIDEBAR
+       ========================================================= */
 
-    /* ----- sections ----- */
-    .section{padding:44px 0}
-    .section-alt{background:var(--surface);border-radius:32px 32px 0 0;margin:0 0 8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);}
-    h2{
-      font-size:clamp(1.6rem,3.2vw,2.4rem);margin-bottom:16px;color:#0b1a2b;
-      display:inline-flex;align-items:center;gap:12px;
-      border-bottom:4px solid var(--primary);padding-bottom:8px;
-      background:linear-gradient(145deg, #142335, #2b4057);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-    }
-    h2 i{color:var(--primary);-webkit-text-fill-color:var(--primary);}
-    h3{font-size:1.25rem;color:#16213e;margin-bottom:12px;font-weight:700}
-    .section-description{color:var(--muted);margin-bottom:28px;font-size:1.05rem}
-
-    /* hero */
-    .hero{
-      display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;
-      background:var(--gradient-hero);
-      border-radius:32px;
-      padding:28px 32px;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(255,255,255,0.5);
-    }
-    .hero p{margin-bottom:14px;font-size:1.08rem;color:#1d334a}
-    .quick-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}
-    .home-image{overflow:hidden;border-radius:24px;box-shadow:0 8px 28px rgba(0,0,0,0.08);}
-    .home-image img{width:100%;height:auto;transition:0.4s;}
-    .home-image img:hover{transform:scale(1.02);}
-
-    /* cards */
-    .home-image,.card, .info-box, .course-card, .news-card, .contact-group, .schedule-card, .tamsa-card{
-      background:rgba(255,255,255,0.8);
-      backdrop-filter:blur(4px);
-      border:1px solid rgba(255,255,255,0.6);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      transition:all 0.25s cubic-bezier(0.2, 0, 0, 1);
-    }
-    .course-card:hover,.news-card:hover,.schedule-card:hover,.tamsa-card:hover,.contact-group:hover{
-      transform:var(--card-hover);
-      box-shadow:0 20px 40px rgba(0, 20, 40, 0.12);
-      border-color:var(--primary-light);
-    }
-    .year-group{margin-bottom:48px}
-    .year-group h3{
-      background:linear-gradient(135deg,#142335,#2a4057);
-      color:#fff;padding:14px 22px;border-radius:40px;display:inline-flex;gap:12px;
-      align-items:center;margin-bottom:20px;box-shadow:0 6px 16px rgba(0,0,0,0.06);
-      font-weight:600;
-    }
-    .course-grid,.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px}
-    .course-card{padding:22px;display:flex;flex-direction:column;min-height:100%;background:#fff;border-left:6px solid var(--primary);}
-    .course-card h4{font-size:1.05rem;line-height:1.35;margin-bottom:10px;color:var(--primary);font-weight:700}
-    .course-card p{color:var(--muted);font-size:.95rem;margin-bottom:14px;flex:1}
-    .semester{
-      align-self:flex-start;background:#eef3fa;color:#1d334a;font-size:.75rem;font-weight:700;
-      padding:6px 14px;border-radius:999px;letter-spacing:0.3px;
-    }
-    .news-card{padding:20px;border-left:6px solid var(--primary);background:#fff}
-    .news-date{font-size:.9rem;color:var(--muted);margin-bottom:8px;font-weight:600}
-    .schedule-grid,.tamsa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
-    .schedule-card,.tamsa-card{padding:28px 22px;text-align:center;background:#fff}
-    .schedule-card i{font-size:2.6rem;color:var(--primary);margin-bottom:14px}
-    .tamsa-card{border-top:6px solid var(--green);}
-    .social-links{display:flex;gap:16px;justify-content:center;margin-top:16px}
-    .social-links a{font-size:1.8rem;color:#1a2a3f;transition:0.2s}
-    .social-links a:hover{color:var(--primary);transform:scale(1.15)}
-    .contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .contact-group{padding:24px;background:#fff}
-    .contact-item{
-      display:grid;grid-template-columns:1.1fr .9fr 1fr;gap:10px;
-      padding:14px 0;border-bottom:1px solid #e9eff5;align-items:center;
-    }
-    .contact-item:last-child{border-bottom:0}
-    .role{font-weight:700;color:#16213e}
-    .phone,.email{color:var(--muted);font-size:.95rem}
-
-    footer{
-      background:var(--nav);color:#e4e9f2;padding:40px 0;margin-top:24px;
-      border-top:4px solid var(--primary);
-    }
-    .footer-container{text-align:center;display:flex;flex-direction:column;gap:18px}
-    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 28px}
-    .footer-links a{color:#bdc9de;transition:0.2s}
-    .footer-links a:hover{color:#fff;text-decoration:underline}
-    .footer-copy{font-size:.9rem;color:#7c8aa5;border-top:1px solid #26314a;padding-top:16px}
-
-    .no-results{
-      display:none;
-      text-align:center;
-      padding:20px;
-      margin:20px 0 0;
-      background:rgba(255,255,255,0.7);
-      backdrop-filter:blur(4px);
-      border:1px dashed #b7c8dd;
-      border-radius:18px;
-      color:#4e627a;
-      font-weight:500;
+    .mobile-sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: min(84vw,320px);
+      background: #fff;
+      z-index: 2500;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
     }
 
-    @media (max-width: 992px){
-      .hero{grid-template-columns:1fr;padding:24px}
-      .contacts-grid{grid-template-columns:1fr}
+    .mobile-sidebar.open {
+      transform: translateX(0);
     }
-    @media (max-width: 768px){
-      .icon-btn{display:inline-flex}
-      .top-actions .desktop-only{display:none}
-      .header-top{padding:12px 0}
-      .logo img{width:60px;height:60px}
-      .logo-text h1{font-size:1.3rem}
-      .subtitle,.program{font-size:.8rem}
-      nav{display:none}
-      .search-bar-wrap{padding-bottom:8px}
-      .course-grid,.news-grid{grid-template-columns:1fr}
-      .contact-item{grid-template-columns:1fr;gap:4px}
-      .quick-links .btn{width:100%}
-      .quick-links{flex-direction:column}
-      .section{padding:30px 0}
-      .hero{padding:18px}
+
+    .sidebar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg,#fafcff,#f0f5fe);
     }
-    @media (max-width: 480px){
-      .container{width:94%}
-      .logo{gap:10px}
-      .logo img{width:52px;height:52px}
-      .logo-text h1{
-        font-size:1.1rem;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
+
+    .sidebar-links {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: auto;
+    }
+
+    .sidebar-links a {
+      padding: 14px 16px;
+      border-radius: 16px;
+      color: var(--text);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: 0.15s;
+    }
+
+    .sidebar-links a:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateX(4px);
+    }
+
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 2400;
+      display: none;
+      backdrop-filter: blur(2px);
+    }
+
+    .backdrop.show {
+      display: block;
+    }
+
+    /* =========================================================
+       SECTIONS
+       ========================================================= */
+
+    .section {
+      padding: 44px 0;
+    }
+
+    .section-alt {
+      background: var(--surface);
+      border-radius: 32px 32px 0 0;
+      margin: 0 0 8px 0;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+
+    h2 {
+      font-size: clamp(1.6rem,3.2vw,2.4rem);
+      margin-bottom: 16px;
+      color: #0b1a2b;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 4px solid var(--primary);
+      padding-bottom: 8px;
+      background: linear-gradient(145deg,#142335,#2b4057);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h2 i {
+      color: var(--primary);
+      -webkit-text-fill-color: var(--primary);
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: #16213e;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .section-description {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 1.05rem;
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: center;
+      background: var(--gradient-hero);
+      border-radius: 32px;
+      padding: 28px 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .hero p {
+      margin-bottom: 14px;
+      font-size: 1.08rem;
+      color: #1d334a;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .home-image {
+      overflow: hidden;
+      border-radius: 24px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+    }
+
+    .home-image img {
+      width: 100%;
+      height: auto;
+      transition: 0.4s;
+    }
+
+    .home-image img:hover {
+      transform: scale(1.02);
+    }
+
+    /* =========================================================
+       CARDS
+       ========================================================= */
+
+    .home-image,
+    .card,
+    .info-box,
+    .course-card,
+    .news-card,
+    .contact-group,
+    .schedule-card,
+    .tamsa-card {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: all 0.25s cubic-bezier(0.2,0,0,1);
+    }
+
+    .course-card:hover,
+    .news-card:hover,
+    .schedule-card:hover,
+    .tamsa-card:hover,
+    .contact-group:hover {
+      transform: var(--card-hover);
+      box-shadow: 0 20px 40px rgba(0,20,40,0.12);
+      border-color: var(--primary-light);
+    }
+
+    .year-group {
+      margin-bottom: 48px;
+    }
+
+    .year-group h3 {
+      background: linear-gradient(135deg,#142335,#2a4057);
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 40px;
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      font-weight: 600;
+    }
+
+    .course-grid,
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(270px,1fr));
+      gap: 24px;
+    }
+
+    .course-card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      background: #fff;
+      border-left: 6px solid var(--primary);
+    }
+
+    .course-card h4 {
+      font-size: 1.05rem;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .course-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .semester {
+      align-self: flex-start;
+      background: #eef3fa;
+      color: #1d334a;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.3px;
+    }
+
+    .news-card {
+      padding: 20px;
+      border-left: 6px solid var(--primary);
+      background: #fff;
+    }
+
+    .news-date {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .schedule-grid,
+    .tamsa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 24px;
+    }
+
+    .schedule-card,
+    .tamsa-card {
+      padding: 28px 22px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .schedule-card i {
+      font-size: 2.6rem;
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+
+    .tamsa-card {
+      border-top: 6px solid var(--green);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .social-links a {
+      font-size: 1.8rem;
+      color: #1a2a3f;
+      transition: 0.2s;
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+      transform: scale(1.15);
+    }
+
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .contact-group {
+      padding: 24px;
+      background: #fff;
+    }
+
+    .contact-item {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr 1fr;
+      gap: 10px;
+      padding: 14px 0;
+      border-bottom: 1px solid #e9eff5;
+      align-items: center;
+    }
+
+    .contact-item:last-child {
+      border-bottom: 0;
+    }
+
+    .role {
+      font-weight: 700;
+      color: #16213e;
+    }
+
+    .phone,
+    .email {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* =========================================================
+       SEARCH RESULTS
+       ========================================================= */
+
+    .search-results-box {
+      display: none;
+      margin-top: 24px;
+      padding: 18px 20px;
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .search-results-box.show {
+      display: block;
+    }
+
+    .search-results-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .search-result-count {
+      color: var(--primary);
+    }
+
+    .search-result-message {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .search-highlight {
+      outline: 4px solid rgba(183,28,44,0.18);
+      box-shadow: 0 0 0 2px var(--primary), 0 20px 40px rgba(183,28,44,0.18);
+      transform: translateY(-4px);
+    }
+
+    .searchable-item {
+      scroll-margin-top: 180px;
+    }
+
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      margin: 20px 0 0;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
+      border: 1px dashed #b7c8dd;
+      border-radius: 18px;
+      color: #4e627a;
+      font-weight: 500;
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    footer {
+      background: var(--nav);
+      color: #e4e9f2;
+      padding: 40px 0;
+      margin-top: 24px;
+      border-top: 4px solid var(--primary);
+    }
+
+    .footer-container {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 28px;
+    }
+
+    .footer-links a {
+      color: #bdc9de;
+      transition: 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .footer-copy {
+      font-size: 0.9rem;
+      color: #7c8aa5;
+      border-top: 1px solid #26314a;
+      padding-top: 16px;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 992px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 24px;
       }
+
+      .contacts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .icon-btn {
+        display: inline-flex;
+      }
+
+      .top-actions .desktop-only {
+        display: none;
+      }
+
+      .header-top {
+        padding: 12px 0;
+      }
+
+      .logo img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .logo-text h1 {
+        font-size: 1.3rem;
+      }
+
+      .subtitle,
+      .program {
+        font-size: 0.8rem;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .search-bar-wrap {
+        padding-bottom: 8px;
+      }
+
+      .course-grid,
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .quick-links .btn {
+        width: 100%;
+      }
+
+      .quick-links {
+        flex-direction: column;
+      }
+
+      .section {
+        padding: 30px 0;
+      }
+
+      .hero {
+        padding: 18px;
+      }
+
+      .ad-top,
+      .ad-between,
+      .ad-footer {
+        min-height: 70px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 94%;
+      }
+
+      .logo {
+        gap: 10px;
+      }
+
+      .logo img {
+        width: 52px;
+        height: 52px;
+      }
+
+      .logo-text h1 {
+        font-size: 1.1rem;
+      }
+
       .logo-text .subtitle,
-      .logo-text .program{
-        position:absolute !important;
-        width:1px !important;
-        height:1px !important;
-        padding:0 !important;
-        margin:-1px !important;
-        overflow:hidden !important;
-        clip:rect(0 0 0 0) !important;
-        white-space:nowrap !important;
-        border:0 !important;
+      .logo-text .program {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0 0 0 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
       }
-      .header-top{gap:6px}
-      .search-bar{padding:8px 14px}
-      .btn{padding:8px 14px;font-size:.85rem}
-      .course-card,.news-card,.contact-group,.schedule-card,.tamsa-card{padding:16px}
+
+      .header-top {
+        gap: 6px;
+      }
+
+      .search-bar {
+        padding: 6px 7px 6px 14px;
+      }
+
+      .search-button {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+      }
+
+      .btn {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+      }
+
+      .course-card,
+      .news-card,
+      .contact-group,
+      .schedule-card,
+      .tamsa-card {
+        padding: 16px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <a class="skip-link" href="#home">Skip to content</a>
-  <div class="backdrop" id="backdrop"></div>
-  <aside class="mobile-sidebar" id="mobileSidebar" aria-label="Mobile navigation">
-    <div class="sidebar-head">
-      <strong style="font-size:1.2rem;color:#0f1a2b;">📚 BMS HUB</strong>
-      <button class="icon-btn" id="closeSidebarBtn" aria-label="Close menu" style="background:transparent;color:#1a2a3f;width:44px;"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="sidebar-links">
-      <a href="#home"><i class="fas fa-home"></i> Home</a>
-      <a href="#courses"><i class="fas fa-book-open"></i> Courses</a>
-      <a href="bmshubai.html"><i class="fas fa-robot"></i> BMS AI</a>
-      <a href="#schedules"><i class="fas fa-calendar-alt"></i> Schedules</a>
-      <a href="#contacts"><i class="fas fa-address-book"></i> Contacts</a>
-      <a href="#tamsa"><i class="fas fa-user-md"></i> TAMSA</a>
-      <a href="about.html"><i class="fas fa-users-cog"></i> About Developers</a>
-      <a href="https://osim.kiut.ac.tz/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> OSIM Portal</a>
-    </div>
-  </aside>
 
-  <header id="mainHeader">
-    <div class="container header-top">
-      <button class="icon-btn" id="openSidebarBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
-      <div class="logo">
-        <img src="logo.png" alt="KIUT Logo">
-        <div class="logo-text" aria-label="BMS HUB — Faculty of Medicine and Pharmaceutical Sciences — Bachelor of Medicine and Surgery (BMS) Resource HUB">
-          <h1 class="site-title">BMS HUB</h1>
-          <p class="subtitle">Faculty of Medicine &amp; Pharmaceutical Sciences</p>
-          <p class="program">Bachelor of Medicine and Surgery (BMS) Resource HUB</p>
-        </div>
+<a class="skip-link" href="#home">Skip to content</a>
+
+<div class="backdrop" id="backdrop"></div>
+
+<!-- MOBILE SIDEBAR -->
+<aside class="mobile-sidebar" id="mobileSidebar" aria-label="Mobile navigation">
+
+  <div class="sidebar-head">
+    <strong style="font-size:1.2rem;color:#0f1a2b;">
+      📚 BMS HUB
+    </strong>
+
+    <button
+      class="icon-btn"
+      id="closeSidebarBtn"
+      aria-label="Close menu"
+      style="background:transparent;color:#1a2a3f;width:44px;"
+    >
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-links">
+    <a href="#home"><i class="fas fa-home"></i> Home</a>
+    <a href="#courses"><i class="fas fa-book-open"></i> Courses</a>
+    <a href="bmshubai.html"><i class="fas fa-robot"></i> BMS AI</a>
+    <a href="#news"><i class="fas fa-newspaper"></i> News</a>
+    <a href="#schedules"><i class="fas fa-calendar-alt"></i> Schedules</a>
+    <a href="#contacts"><i class="fas fa-address-book"></i> Contacts</a>
+    <a href="#tamsa"><i class="fas fa-user-md"></i> TAMSA</a>
+    <a href="about.html"><i class="fas fa-users-cog"></i> About Developers</a>
+
+    <a
+      href="https://osim.kiut.ac.tz/"
+      target="_blank"
+      rel="noopener"
+    >
+      <i class="fas fa-external-link-alt"></i>
+      OSIM Portal
+    </a>
+  </div>
+</aside>
+
+
+<!-- HEADER -->
+<header id="mainHeader">
+
+  <div class="container header-top">
+
+    <button
+      class="icon-btn"
+      id="openSidebarBtn"
+      aria-label="Open menu"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="logo">
+
+      <img src="logo.png" alt="KIUT Logo">
+
+      <div
+        class="logo-text"
+        aria-label="BMS HUB — Faculty of Medicine and Pharmaceutical Sciences — Bachelor of Medicine and Surgery Resource HUB"
+      >
+        <h1 class="site-title">BMS HUB</h1>
+
+        <p class="subtitle">
+          Faculty of Medicine &amp; Pharmaceutical Sciences
+        </p>
+
+        <p class="program">
+          Bachelor of Medicine and Surgery (BMS) Resource HUB
+        </p>
       </div>
-      <div class="top-actions">
-        <a href="https://osim.kiut.ac.tz/" target="_blank" rel="noopener" class="btn btn-osim desktop-only"><i class="fas fa-external-link-alt"></i> OSIM Portal</a>
-        <a href="#tamsa" class="btn btn-tamsa desktop-only"><i class="fas fa-users"></i> TAMSA KIUT</a>
-      </div>
+
     </div>
-    <div class="container search-bar-wrap">
-      <div class="search-bar">
+
+    <div class="top-actions">
+
+      <a
+        href="https://osim.kiut.ac.tz/"
+        target="_blank"
+        rel="noopener"
+        class="btn btn-osim desktop-only"
+      >
+        <i class="fas fa-external-link-alt"></i>
+        OSIM Portal
+      </a>
+
+      <a
+        href="#tamsa"
+        class="btn btn-tamsa desktop-only"
+      >
+        <i class="fas fa-users"></i>
+        TAMSA KIUT
+      </a>
+
+    </div>
+  </div>
+
+
+  <!-- SEARCH -->
+  <div class="container search-bar-wrap">
+
+    <div class="search-bar">
+
+      <i class="fas fa-search"></i>
+
+      <input
+        id="noteSearch"
+        type="search"
+        placeholder="Search notes, courses, news, contacts..."
+        aria-label="Search BMS Hub"
+        autocomplete="off"
+      >
+
+      <!-- NEW LENS BUTTON -->
+      <button
+        type="button"
+        class="search-button"
+        id="searchButton"
+        aria-label="Search"
+        title="Search"
+      >
         <i class="fas fa-search"></i>
-        <input id="noteSearch" type="search" placeholder="Search all notes, courses, news, contacts..." aria-label="Search all notes">
-      </div>
-    </div>
-  </header>
+      </button>
 
-  <nav id="mainNav">
-    <div class="container nav-inner">
-      <a href="#home" data-section="home"><i class="fas fa-home"></i> Home</a>
-      <a href="#courses" data-section="courses"><i class="fas fa-book-open"></i> Courses</a>
-      <a href="bmshubai.html"><i class="fas fa-robot"></i> BMS AI</a>
-      <a href="#news" data-section="news"><i class="fas fa-newspaper"></i> News</a>
-      <a href="#schedules" data-section="schedules"><i class="fas fa-calendar-alt"></i> Schedules</a>
-      <a href="#contacts" data-section="contacts"><i class="fas fa-address-book"></i> Contacts</a>
-      <a href="#tamsa" data-section="tamsa"><i class="fas fa-user-md"></i> TAMSA</a>
-      <a href="about.html"><i class="fas fa-users-cog"></i> About Developers</a>
     </div>
-  </nav>
 
-  <main>
-    <section id="home" class="section">
-      <div class="container hero">
+    <div class="search-status" id="searchStatus"></div>
+
+    <!-- Instant results appear here immediately after tapping the lens -->
+    <div class="instant-search-panel" id="instantSearchPanel" aria-live="polite">
+      <div class="instant-search-head" id="instantSearchHead"></div>
+      <div class="instant-search-list" id="instantSearchList"></div>
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- MONETIZATION SLOT -->
+<div class="container">
+  <div class="ad-slot ad-top">
+    <span>ADVERTISEMENT</span>
+  </div>
+</div>
+
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+
+  <div class="container nav-inner">
+
+    <a href="#home" data-section="home">
+      <i class="fas fa-home"></i> Home
+    </a>
+
+    <a href="#courses" data-section="courses">
+      <i class="fas fa-book-open"></i> Courses
+    </a>
+
+    <a href="bmshubai.html">
+      <i class="fas fa-robot"></i> BMS AI
+    </a>
+
+    <a href="#news" data-section="news">
+      <i class="fas fa-newspaper"></i> News
+    </a>
+
+    <a href="#schedules" data-section="schedules">
+      <i class="fas fa-calendar-alt"></i> Schedules
+    </a>
+
+    <a href="#contacts" data-section="contacts">
+      <i class="fas fa-address-book"></i> Contacts
+    </a>
+
+    <a href="#tamsa" data-section="tamsa">
+      <i class="fas fa-user-md"></i> TAMSA
+    </a>
+
+    <a href="about.html">
+      <i class="fas fa-users-cog"></i> About Developers
+    </a>
+
+  </div>
+
+</nav>
+
+
+<main>
+
+  <!-- HOME -->
+  <section id="home" class="section">
+
+    <div class="container">
+
+      <div class="hero">
+
         <div>
-          <h2 style="border-bottom:0;background:none;-webkit-text-fill-color:var(--primary);">👋 Welcome to the BMS HUB</h2>
-          <p style="font-size:1.15rem;font-weight:500;color:#142335;">Your central platform for academic resources, announcements, and connections.</p>
-          <p>Explore courses, search any note, and stay updated with news, schedules, and TAMSA activities.</p>
+
+          <h2 style="border-bottom:0;background:none;-webkit-text-fill-color:var(--primary);">
+            👋 Welcome to the BMS HUB
+          </h2>
+
+          <p style="font-size:1.15rem;font-weight:500;color:#142335;">
+            Your central platform for academic resources, announcements, and connections.
+          </p>
+
+          <p>
+            Explore courses, search any note, and stay updated with news,
+            schedules, and TAMSA activities.
+          </p>
+
           <div class="quick-links">
-            <a href="#courses" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Explore Courses</a>
-            <a href="https://osim.kiut.ac.tz/" rel="noopener" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Go to OSIM</a>
-            <a href="https://chat.whatsapp.com/LEvfp7g3Y185tLm0dPA74a?s=cl&p=a&ilr=0" target="_blank" rel="noopener" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Group</a>
+
+            <a href="#courses" class="btn btn-primary">
+              <i class="fas fa-arrow-right"></i>
+              Explore Courses
+            </a>
+
+            <a
+              href="https://osim.kiut.ac.tz/"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-secondary"
+            >
+              <i class="fas fa-external-link-alt"></i>
+              Go to OSIM
+            </a>
+
+            <a
+              href="https://chat.whatsapp.com/LEvfp7g3Y185tLm0dPA74a?s=cl&p=a&ilr=0"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-whatsapp"
+            >
+              <i class="fab fa-whatsapp"></i>
+              WhatsApp Group
+            </a>
+
           </div>
+
         </div>
+
         <div class="home-image">
-          <img src="welcome.gif" alt="KIUT Medicine">
+          <img src="welcome2.gif" alt="KIUT Medicine">
         </div>
+
       </div>
-    </section>
 
-    <section id="courses" class="section section-alt searchable-section">
-      <div class="container">
-        <h2><i class="fas fa-graduation-cap"></i> Academic Courses by Year</h2>
-        <p class="section-description">Search across all course cards — matching highlights visibility.</p>
-
-        <div class="year-group">
-          <h3><i class="fas fa-arrow-right"></i> Year 1</h3>
-          <div class="course-grid">
-            <div class="course-card searchable-item">
-              <h4><a href="anatomy1.html">MAN 111: Gross Anatomy and Histology</a></h4>
-              <p>Detailed histology and macroscopic anatomy of body structures, skeleton, muscles, and innervation.</p>
-              <span class="semester">Semester I</span>
-            </div>
-            <div class="course-card searchable-item">
-              <h4><a href="biochemistry1.html">MBM 112: Biochemistry and Molecular Biology I</a></h4>
-              <p>Cell biology, acid-base balance, carbohydrate, protein, lipid, and nucleotide chemistry.</p>
-              <span class="semester">Semester I</span>
-            </div>
-            <div class="course-card searchable-item">
-              <h4><a href="mic.html">MIC 113: ICT & Communication Skills</a></h4>
-              <p>Psychology of study, communication skills, reading, oral and writing skills, and computer applications.</p>
-              <span class="semester">Semester I</span>
-            </div>
-            <div class="course-card searchable-item">
-              <h4><a href="mpe114.html">MPE 114: Professionalism & Ethics in Health and Research</a></h4>
-              <p>Introduction to concepts and principles of ethics, integrity, and professional behavior.</p>
-              <span class="semester">Semester I</span>
-            </div>
-            <div class="course-card searchable-item">
-              <h4><a href="physiology1.html">MPH 115: Physiology I</a></h4>
-              <p>Body fluids, excitable tissue, blood, excretory system, circulation, and respiration.</p>
-              <span class="semester">Semester I</span>
-            </div>
-            <div class="course-card searchable-item">
-              <h4><a href="anatomy2.html">MED 121: Embryology and Dissection</a></h4>
-              <p>Gametogenesis, fertilization, embryogenesis, systemic embryology, and neuroanatomy.</p>
-              <span class="semester">Semester II</span>
-            </div>
-            <div class="course-card searchable-item">
-              <h4><a href="behavioralscience.html">MBS 122: Behavioural Science</a></h4>
-              <p>Psychology, medical sociology, and anthropology. Personality, human learning, memory, death and dying.</p>
-              <span class="semester">Semester II</span>
-            </div>
-            <div class="course-card searchable-item">
-              <h4><a href="physiology2.html">MPH 124: Physiology II</a></h4>
-              <p>Digestive system, metabolism, endocrine system, reproductive physiology, and central nervous system.</p>
-              <span class="semester">Semester II</span>
-            </div>
-            <div class="course-card searchable-item">
-              <h4><a href="biochemistry2.html">MBM 125: Biochemistry and Molecular Biology II</a></h4>
-              <p>Lipid, amino acid, heme metabolism, molecular biology, cancer biology, and signal transduction.</p>
-              <span class="semester">Semester II</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="year-group">
-          <h3><i class="fas fa-arrow-right"></i> Year 2</h3>
-          <div class="course-grid">
-            <div class="course-card searchable-item"><h4><a href="microbiology.html">MMI 211: Microbiology and Immunology</a></h4><p>Bacteriology, virology, mycology, and immunology. Structure, physiology, genetics, and pathogenesis.</p><span class="semester">Semester III</span></div>
-            <div class="course-card searchable-item"><h4><a href="parasitology.html">MPE 212: Parasitology & Entomology</a></h4><p>Morphology, classification, clinical features, pathogenesis, and laboratory diagnosis of parasites and vectors.</p><span class="semester">Semester III</span></div>
-            <div class="course-card searchable-item"><h4><a href="epidemiology.html">MEB 213: Epidemiology and Biostatistics</a></h4><p>Epidemiological principles, statistical measures of health, determinants of disease, and biostatistics.</p><span class="semester">Semester III</span></div>
-            <div class="course-card searchable-item"><h4><a href="HealthSystems&Development.html">MHD 214: Health Systems & Development</a></h4><p>Health care system evaluation, development studies, health policies, and district health services.</p><span class="semester">Semester III</span></div>
-            <div class="course-card searchable-item"><h4>MCH 123: Introduction to Community Health</h4><p>General principles of community health, COBERMS, disaster preparedness, and community drug use.</p><span class="semester">Semester III</span></div>
-            <div class="course-card searchable-item"><h4>MCH 221: Community Health Practice</h4><p>Community organization, assessment, diagnosis, food security, nutritional disorders, and environmental health.</p><span class="semester">Semester IV</span></div>
-            <div class="course-card searchable-item"><h4><a href="pharmacology.html">MCP 222: Basic and Clinical Pharmacology</a></h4><p>Pharmacodynamics, pharmacokinetics, drug interactions, and pharmacology of major drug classes.</p><span class="semester">Semester IV</span></div>
-            <div class="course-card searchable-item"><h4><a href="pathology.html">MPA 223: Pathology</a></h4><p>General and systemic pathology, immunopathology, chemical pathology, and disease processes.</p><span class="semester">Semester IV</span></div>
-            <div class="course-card searchable-item"><h4>MPP 224: Psychopathology</h4><p>Basic psychopathological concepts, building blocks for understanding psychiatric symptomatology.</p><span class="semester">Semester IV</span></div>
-            <div class="course-card searchable-item"><h4><a href="hematology.html">MHB 225: Hematology and Blood Transfusion</a></h4><p>Blood disorders, identification, investigation, management, and application of blood transfusion principles.</p><span class="semester">Semester IV</span></div>
-          </div>
-        </div>
-
-        <div class="year-group">
-          <h3><i class="fas fa-arrow-right"></i> Year 3</h3>
-          <div class="course-grid">
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MMD 311: Management of Diseases</a></h4><p>Principles of history taking, physical examination, and scientific basis of diagnosis and management of clinical conditions.</p><span class="semester">Semester V</span></div>
-            <div class="course-card searchable-item"><h4><a href="Radiology.html">MRI 312: Radiology and Imaging</a></h4><p>Principles of medical imaging, different modalities, utilization in disease diagnosis, and interpretation.</p><span class="semester">Semester V</span></div>
-            <div class="course-card searchable-item"><h4><a href="mpe321.html">MPE 321: Professionalism and Ethics in Medical Practice</a></h4><p>Ethical and legal issues in medical decision-making, structure and function of law in relation to medicine.</p><span class="semester">Semester VI</span></div>
-            <div class="course-card searchable-item"><h4><a href="mdc.html">MDC 322: Communicable & Non Communicable Diseases Control</a></h4><p>Knowledge and skills of disease control at the community level, magnitude, and management approaches.</p><span class="semester">Semester VI</span></div>
-            <div class="course-card searchable-item"><h4><a href="mrp.html">MRP 323: Research Proposal Development</a></h4><p>Research methodology, proposal development stages, and preparation of a research proposal.</p><span class="semester">Semester VI</span></div>
-            <div class="course-card searchable-item"><h4><a href="occupationalmedicine.html">MOM 324: Occupational Medicine</a></h4><p>Causes, prevention, recognition, and management of occupational health hazards.</p><span class="semester">Semester VI</span></div>
-            <div class="course-card searchable-item"><h4><a href="mme.html">MME 325: Management and Entrepreneurship</a></h4><p>Principles of management, health sector economics, financial management, and human resource management.</p><span class="semester">Semester VI</span></div>
-            <div class="course-card searchable-item"><h4><a href="forensics and toxicology.html">MFT 326: Forensic Medicine and Toxicology</a></h4><p>Medico-legal matters, court procedures, report writing, death certification, and toxicology.</p><span class="semester">Semester VI</span></div>
-          </div>
-        </div>
-
-        <div class="year-group">
-          <h3><i class="fas fa-arrow-right"></i> Year 4</h3>
-          <div class="course-grid">
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MPM 421: Psychiatry and Mental Health</a></h4><p>Clinical knowledge, attitudes, and skills in assessing, diagnosing, and managing psychiatric disorders.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MAC 422: Anaesthesia and Critical Care Medicine</a></h4><p>Basic principles and practice of safe anaesthesia, resuscitation, and critical care medicine.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MOP 423: Ophthalmology</a></h4><p>Concepts of blindness, low vision, and diagnosis and management of common ocular conditions.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MEM 424: Emergency Medicine</a></h4><p>Basic principles of management of common emergency conditions in adults and children.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MGS 411: General Surgery, Orthopedic Trauma and Neurosurgery I</a></h4><p>Evaluation, diagnosis, and management of common surgical conditions, with a focus on interdisciplinary approaches.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MIM 412: Internal Medicine I</a></h4><p>Essential knowledge and skills to recognise, assess, and manage common medical conditions.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MOG 413: Reproductive Health, Obstetrics and Gynaecology I</a></h4><p>Necessary knowledge and skills to assess, identify, and manage normal processes and disease conditions in RH, OBGY.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MPC 414: Paediatrics and Child Health I</a></h4><p>Comprehensive knowledge and professional skills to recognise, assess, and manage childhood illnesses.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MOT 425: Otorhinolaryngology</a></h4><p>Basic principles of ENT, use of medical equipment, and interpretation of laboratory and imaging results.</p><span class="semester">Semester VII & VIII</span></div>
-            <div class="course-card searchable-item"><h4><a href="mmd.html">MON 426: Orthopaedics, Traumatology and Neurosurgery</a></h4><p>Management of common conditions in orthopaedics, traumatology, and neurosurgery.</p><span class="semester">Semester VII & VIII</span></div>
-          </div>
-        </div>
-
-        <div class="year-group">
-          <h3><i class="fas fa-arrow-right"></i> Year 5</h3>
-          <div class="course-grid">
-            <div class="course-card searchable-item"><h4>MGS 511: General Surgery, Orthopedic Trauma, Neurosurgery & Paediatric Surgery II</h4><p>Advanced management of surgical diseases, with enhanced clinical skills and decision-making.</p><span class="semester">Semester IX & X</span></div>
-            <div class="course-card searchable-item"><h4>MIM 512: Internal Medicine II</h4><p>Advanced knowledge, basic clinical skills, and investigative approaches for managing common medical diseases.</p><span class="semester">Semester IX & X</span></div>
-            <div class="course-card searchable-item"><h4>MOG 521: Reproductive Health, Obstetrics and Gynaecology II</h4><p>Advanced RH, obstetrics and gynaecology knowledge and clinical management.</p><span class="semester">Semester IX & X</span></div>
-          </div>
-        </div>
-
-        <div class="no-results" id="noResultsCourses">✨ No matching notes found. Try a different keyword.</div>
-      </div>
-    </section>
-
-    <section id="news" class="section searchable-section">
-      <div class="container">
-        <h2><i class="fas fa-newspaper"></i> News and Announcements</h2>
-        <div class="news-grid">
-          <div class="news-card searchable-item">
-            <div class="news-date">📅 Updated: Current Semester</div>
-            <h3>Semester schedules are available</h3>
-            <p>Check the schedules section for year-specific academic timetables and updates.</p>
-          </div>
-          <div class="news-card searchable-item">
-            <div class="news-date">📢 Reminder</div>
-            <h3>Join the official WhatsApp group</h3>
-            <p>Use the community link for fast communication with classmates and representatives.</p>
-          </div>
-        </div>
-        <div class="no-results" id="noResultsNews">No matching news found.</div>
-      </div>
-    </section>
-
-    <section id="schedules" class="section section-alt searchable-section">
-      <div class="container">
-        <h2><i class="fas fa-calendar-alt"></i> Academic Schedules</h2>
-        <div class="schedule-grid">
-          <div class="schedule-card searchable-item">
-            <i class="fas fa-clock"></i>
-            <h3>Lecture Timetables</h3>
-            <p>Access semester lecture schedules for your year of study.</p>
-            <a href="#" class="btn btn-primary" style="margin-top:10px;">Open</a>
-          </div>
-          <div class="schedule-card searchable-item">
-            <i class="fas fa-vials"></i>
-            <h3>Practical Sessions</h3>
-            <p>Find lab and practical session updates here.</p>
-            <a href="#" class="btn btn-secondary" style="margin-top:10px;">Open</a>
-          </div>
-          <div class="schedule-card searchable-item">
-            <i class="fas fa-clipboard-check"></i>
-            <h3>Exams & Assessments</h3>
-            <p>Track exam dates and assessment information.</p>
-            <a href="#" class="btn btn-primary" style="margin-top:10px;">Open</a>
-          </div>
-        </div>
-        <div class="no-results" id="noResultsSchedules">No matching schedules found.</div>
-      </div>
-    </section>
-
-    <section id="contacts" class="section searchable-section">
-      <div class="container">
-        <h2><i class="fas fa-address-book"></i> Contacts</h2>
-        <div class="contacts-grid">
-          <div class="contact-group searchable-item">
-            <h3>Important contacts</h3>
-            <div class="contact-item"><div class="role">BMS Parliamentarian</div><div class="name">Brighton Makanta</div><div class="phone"><i class="fas fa-phone"></i> +255 743 542 189</div></div>
-            <div class="contact-item"><div class="role">Year 3 Rep</div><div class="name">David Ng'alila</div><div class="phone"><i class="fas fa-phone"></i> +255 620 113 620</div></div>
-          </div>
-          <div class="contact-group searchable-item">
-            <h3>Faculty Contacts</h3>
-            <div class="contact-item"><div class="role">Dean's Office</div><div class="name">Faculty Office</div><div class="email"><i class="fas fa-envelope"></i> faculty@kiut.ac.tz</div></div>
-            <div class="contact-item"><div class="role">Program Coordinator</div><div class="name">Medicine & Surgery</div><div class="email"><i class="fas fa-envelope"></i> coordinator@kiut.ac.tz</div></div>
-            <div class="contact-item"><div class="role">Student Affairs</div><div class="name">Support Desk</div><div class="email"><i class="fas fa-envelope"></i> students@kiut.ac.tz</div></div>
-          </div>
-        </div>
-        <div class="no-results" id="noResultsContacts">No matching contacts found.</div>
-      </div>
-    </section>
-
-    <section id="tamsa" class="section section-alt searchable-section">
-      <div class="container">
-        <h2><i class="fas fa-user-md"></i> TAMSA KIUT</h2>
-        <div class="tamsa-grid">
-          <div class="tamsa-card searchable-item">
-            <h3>About TAMSA</h3>
-            <p>Student association for medical students at KIUT.</p>
-          </div>
-          <div class="tamsa-card searchable-item">
-            <h3>Follow Us</h3>
-            <p>Stay connected with official updates and activities.</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/tamsa_kiut/"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-whatsapp"></i></a>
-              <a href="#"><i class="fab fa-telegram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="no-results" id="noResultsTamsa">No matching TAMSA content found.</div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-container">
-      <div class="footer-links">
-        <a href="#home">Home</a>
-        <a href="#courses">Courses</a>
-        <a href="bmshubai.html">BMS AI</a>
-        <a href="#news">News</a>
-        <a href="#contacts">Contacts</a>
-      </div>
-      <div class="footer-copy">© 2026 BMS HUB — built with ❤️</div>
     </div>
-  </footer>
 
-  <script>
-    // ----- Mobile sidebar -----
-    const sidebar = document.getElementById('mobileSidebar');
-    const backdrop = document.getElementById('backdrop');
-    const openSidebarBtn = document.getElementById('openSidebarBtn');
-    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+  </section>
 
-    const toggleSidebar = (open) => {
-      sidebar.classList.toggle('open', open);
-      backdrop.classList.toggle('show', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    };
-    openSidebarBtn.addEventListener('click', () => toggleSidebar(true));
-    closeSidebarBtn.addEventListener('click', () => toggleSidebar(false));
-    backdrop.addEventListener('click', () => toggleSidebar(false));
-    sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleSidebar(false)));
 
-    // ----- Dynamic header height for sticky nav -----
-    const header = document.getElementById('mainHeader');
-    function updateHeaderHeight() {
-      const h = header.offsetHeight;
-      document.documentElement.style.setProperty('--header-height', h + 'px');
-    }
-    updateHeaderHeight();
-    window.addEventListener('resize', updateHeaderHeight);
+  <!-- ADVERTISEMENT -->
+  <div class="container">
+    <div class="ad-slot ad-between">
+      <span>ADVERTISEMENT</span>
+    </div>
+  </div>
 
-    // ----- Scroll-spy (active nav link) -----
-    const navLinks = document.querySelectorAll('.nav-inner a[data-section]');
-    const sections = document.querySelectorAll('main section[id]');
 
-    function setActiveLink() {
-      const scrollY = window.scrollY + header.offsetHeight + 60; // offset for sticky elements
-      let current = 'home';
+  <!-- COURSES -->
+  <section id="courses" class="section section-alt searchable-section">
 
-      sections.forEach(sec => {
-        if (sec.offsetTop <= scrollY) {
-          current = sec.id;
-        }
-      });
+    <div class="container">
 
-      navLinks.forEach(link => {
-        link.classList.toggle('active', link.dataset.section === current);
-      });
-    }
-    window.addEventListener('scroll', setActiveLink, { passive: true });
-    setActiveLink(); // initial
+      <h2>
+        <i class="fas fa-graduation-cap"></i>
+        Academic Courses by Year
+      </h2>
 
-    // ----- Search -----
-    const noteSearch = document.getElementById('noteSearch');
-    const searchSections = [
-      {
-        items: [...document.querySelectorAll('#courses .searchable-item')],
-        empty: document.getElementById('noResultsCourses'),
-        yearGroups: [...document.querySelectorAll('#courses .year-group')]
-      },
-      {
-        items: [...document.querySelectorAll('#news .searchable-item')],
-        empty: document.getElementById('noResultsNews')
-      },
-      {
-        items: [...document.querySelectorAll('#schedules .searchable-item')],
-        empty: document.getElementById('noResultsSchedules')
-      },
-      {
-        items: [...document.querySelectorAll('#contacts .searchable-item')],
-        empty: document.getElementById('noResultsContacts')
-      },
-      {
-        items: [...document.querySelectorAll('#tamsa .searchable-item')],
-        empty: document.getElementById('noResultsTamsa')
+      <p class="section-description">
+        Search across all BMS course resources.
+      </p>
+
+      <div class="search-results-box" id="searchResultsBox">
+
+        <div class="search-results-title">
+          Search results:
+          <span class="search-result-count" id="searchResultCount"></span>
+        </div>
+
+        <div class="search-result-message" id="searchResultMessage"></div>
+
+      </div>
+
+
+      <!-- YEAR 1 -->
+      <div class="year-group">
+
+        <h3>
+          <i class="fas fa-arrow-right"></i>
+          Year 1
+        </h3>
+
+        <div class="course-grid">
+
+          <div class="course-card searchable-item">
+            <h4><a href="anatomy1.html">MAN 111: Gross Anatomy and Histology</a></h4>
+            <p>Detailed histology and macroscopic anatomy of body structures, skeleton, muscles, and innervation.</p>
+            <span class="semester">Semester I</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="biochemistry1.html">MBM 112: Biochemistry and Molecular Biology I</a></h4>
+            <p>Cell biology, acid-base balance, carbohydrate, protein, lipid, and nucleotide chemistry.</p>
+            <span class="semester">Semester I</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mic.html">MIC 113: ICT &amp; Communication Skills</a></h4>
+            <p>Psychology of study, communication skills, reading, oral and writing skills, and computer applications.</p>
+            <span class="semester">Semester I</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mpe114.html">MPE 114: Professionalism &amp; Ethics in Health and Research</a></h4>
+            <p>Introduction to concepts and principles of ethics, integrity, and professional behavior.</p>
+            <span class="semester">Semester I</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="physiology1.html">MPH 115: Physiology I</a></h4>
+            <p>Body fluids, excitable tissue, blood, excretory system, circulation, and respiration.</p>
+            <span class="semester">Semester I</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="anatomy2.html">MED 121: Embryology and Dissection</a></h4>
+            <p>Gametogenesis, fertilization, embryogenesis, systemic embryology, and neuroanatomy.</p>
+            <span class="semester">Semester II</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="behavioralscience.html">MBS 122: Behavioural Science</a></h4>
+            <p>Psychology, medical sociology, and anthropology. Personality, human learning, memory, death and dying.</p>
+            <span class="semester">Semester II</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="physiology2.html">MPH 124: Physiology II</a></h4>
+            <p>Digestive system, metabolism, endocrine system, reproductive physiology, and central nervous system.</p>
+            <span class="semester">Semester II</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="biochemistry2.html">MBM 125: Biochemistry and Molecular Biology II</a></h4>
+            <p>Lipid, amino acid, heme metabolism, molecular biology, cancer biology, and signal transduction.</p>
+            <span class="semester">Semester II</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- YEAR 2 -->
+      <div class="year-group">
+
+        <h3><i class="fas fa-arrow-right"></i> Year 2</h3>
+
+        <div class="course-grid">
+
+          <div class="course-card searchable-item">
+            <h4><a href="microbiology.html">MMI 211: Microbiology and Immunology</a></h4>
+            <p>Bacteriology, virology, mycology, and immunology. Structure, physiology, genetics, and pathogenesis.</p>
+            <span class="semester">Semester III</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="parasitology.html">MPE 212: Parasitology &amp; Entomology</a></h4>
+            <p>Morphology, classification, clinical features, pathogenesis, and laboratory diagnosis of parasites and vectors.</p>
+            <span class="semester">Semester III</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="epidemiology.html">MEB 213: Epidemiology and Biostatistics</a></h4>
+            <p>Epidemiological principles, statistical measures of health, determinants of disease, and biostatistics.</p>
+            <span class="semester">Semester III</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="HealthSystems&Development.html">MHD 214: Health Systems &amp; Development</a></h4>
+            <p>Health care system evaluation, development studies, health policies, and district health services.</p>
+            <span class="semester">Semester III</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4>MCH 123: Introduction to Community Health</h4>
+            <p>General principles of community health, COBERMS, disaster preparedness, and community drug use.</p>
+            <span class="semester">Semester III</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4>MCH 221: Community Health Practice</h4>
+            <p>Community organization, assessment, diagnosis, food security, nutritional disorders, and environmental health.</p>
+            <span class="semester">Semester IV</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="pharmacology.html">MCP 222: Basic and Clinical Pharmacology</a></h4>
+            <p>Pharmacodynamics, pharmacokinetics, drug interactions, and pharmacology of major drug classes.</p>
+            <span class="semester">Semester IV</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="pathology.html">MPA 223: Pathology</a></h4>
+            <p>General and systemic pathology, immunopathology, chemical pathology, and disease processes.</p>
+            <span class="semester">Semester IV</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4>MPP 224: Psychopathology</h4>
+            <p>Basic psychopathological concepts, building blocks for understanding psychiatric symptomatology.</p>
+            <span class="semester">Semester IV</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="hematology.html">MHB 225: Hematology and Blood Transfusion</a></h4>
+            <p>Blood disorders, identification, investigation, management, and application of blood transfusion principles.</p>
+            <span class="semester">Semester IV</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- YEAR 3 -->
+      <div class="year-group">
+
+        <h3><i class="fas fa-arrow-right"></i> Year 3</h3>
+
+        <div class="course-grid">
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MMD 311: Management of Diseases</a></h4>
+            <p>Principles of history taking, physical examination, and scientific basis of diagnosis and management of clinical conditions.</p>
+            <span class="semester">Semester V</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="Radiology.html">MRI 312: Radiology and Imaging</a></h4>
+            <p>Principles of medical imaging, different modalities, utilization in disease diagnosis, and interpretation.</p>
+            <span class="semester">Semester V</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mpe321.html">MPE 321: Professionalism and Ethics in Medical Practice</a></h4>
+            <p>Ethical and legal issues in medical decision-making, structure and function of law in relation to medicine.</p>
+            <span class="semester">Semester VI</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mdc.html">MDC 322: Communicable &amp; Non Communicable Diseases Control</a></h4>
+            <p>Knowledge and skills of disease control at the community level, magnitude, and management approaches.</p>
+            <span class="semester">Semester VI</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mrp.html">MRP 323: Research Proposal Development</a></h4>
+            <p>Research methodology, proposal development stages, and preparation of a research proposal.</p>
+            <span class="semester">Semester VI</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="occupationalmedicine.html">MOM 324: Occupational Medicine</a></h4>
+            <p>Causes, prevention, recognition, and management of occupational health hazards.</p>
+            <span class="semester">Semester VI</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mme.html">MME 325: Management and Entrepreneurship</a></h4>
+            <p>Principles of management, health sector economics, financial management, and human resource management.</p>
+            <span class="semester">Semester VI</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="forensics and toxicology.html">MFT 326: Forensic Medicine and Toxicology</a></h4>
+            <p>Medico-legal matters, court procedures, report writing, death certification, and toxicology.</p>
+            <span class="semester">Semester VI</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- YEAR 4 -->
+      <div class="year-group">
+
+        <h3><i class="fas fa-arrow-right"></i> Year 4</h3>
+
+        <div class="course-grid">
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MPM 421: Psychiatry and Mental Health</a></h4>
+            <p>Clinical knowledge, attitudes, and skills in assessing, diagnosing, and managing psychiatric disorders.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MAC 422: Anaesthesia and Critical Care Medicine</a></h4>
+            <p>Basic principles and practice of safe anaesthesia, resuscitation, and critical care medicine.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MOP 423: Ophthalmology</a></h4>
+            <p>Concepts of blindness, low vision, and diagnosis and management of common ocular conditions.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MEM 424: Emergency Medicine</a></h4>
+            <p>Basic principles of management of common emergency conditions in adults and children.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MGS 411: General Surgery, Orthopedic Trauma and Neurosurgery I</a></h4>
+            <p>Evaluation, diagnosis, and management of common surgical conditions, with a focus on interdisciplinary approaches.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MIM 412: Internal Medicine I</a></h4>
+            <p>Essential knowledge and skills to recognise, assess, and manage common medical conditions.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MOG 413: Reproductive Health, Obstetrics and Gynaecology I</a></h4>
+            <p>Necessary knowledge and skills to assess, identify, and manage normal processes and disease conditions in RH, OBGY.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MPC 414: Paediatrics and Child Health I</a></h4>
+            <p>Comprehensive knowledge and professional skills to recognise, assess, and manage childhood illnesses.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MOT 425: Otorhinolaryngology</a></h4>
+            <p>Basic principles of ENT, use of medical equipment, and interpretation of laboratory and imaging results.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4><a href="mmd.html">MON 426: Orthopaedics, Traumatology and Neurosurgery</a></h4>
+            <p>Management of common conditions in orthopaedics, traumatology, and neurosurgery.</p>
+            <span class="semester">Semester VII &amp; VIII</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- YEAR 5 -->
+      <div class="year-group">
+
+        <h3><i class="fas fa-arrow-right"></i> Year 5</h3>
+
+        <div class="course-grid">
+
+          <div class="course-card searchable-item">
+            <h4>MGS 511: General Surgery, Orthopedic Trauma, Neurosurgery &amp; Paediatric Surgery II</h4>
+            <p>Advanced management of surgical diseases, with enhanced clinical skills and decision-making.</p>
+            <span class="semester">Semester IX &amp; X</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4>MIM 512: Internal Medicine II</h4>
+            <p>Advanced knowledge, basic clinical skills, and investigative approaches for managing common medical diseases.</p>
+            <span class="semester">Semester IX &amp; X</span>
+          </div>
+
+          <div class="course-card searchable-item">
+            <h4>MOG 521: Reproductive Health, Obstetrics and Gynaecology II</h4>
+            <p>Advanced RH, obstetrics and gynaecology knowledge and clinical management.</p>
+            <span class="semester">Semester IX &amp; X</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="no-results" id="noResultsCourses">
+        🔎 No matching course found. Try another keyword.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ADVERTISEMENT -->
+  <div class="container">
+    <div class="ad-slot ad-between">
+      <span>ADVERTISEMENT</span>
+    </div>
+  </div>
+
+
+  <!-- NEWS -->
+  <section id="news" class="section searchable-section">
+
+    <div class="container">
+
+      <h2>
+        <i class="fas fa-newspaper"></i>
+        News and Announcements
+      </h2>
+
+      <div class="news-grid">
+
+        <div class="news-card searchable-item">
+          <div class="news-date">📅 Updated: Current Semester</div>
+          <h3>Semester schedules are available</h3>
+          <p>Check the schedules section for year-specific academic timetables and updates.</p>
+        </div>
+
+        <div class="news-card searchable-item">
+          <div class="news-date">📢 Reminder</div>
+          <h3>Join the official WhatsApp group</h3>
+          <p>Use the community link for fast communication with classmates and representatives.</p>
+        </div>
+
+      </div>
+
+      <div class="no-results" id="noResultsNews">
+        No matching news found.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SCHEDULES -->
+  <section id="schedules" class="section section-alt searchable-section">
+
+    <div class="container">
+
+      <h2>
+        <i class="fas fa-calendar-alt"></i>
+        Academic Schedules
+      </h2>
+
+      <div class="schedule-grid">
+
+        <div class="schedule-card searchable-item">
+          <i class="fas fa-clock"></i>
+          <h3>Lecture Timetables</h3>
+          <p>Access semester lecture schedules for your year of study.</p>
+          <a href="#" class="btn btn-primary" style="margin-top:10px;">
+            Open
+          </a>
+        </div>
+
+        <div class="schedule-card searchable-item">
+          <i class="fas fa-vials"></i>
+          <h3>Practical Sessions</h3>
+          <p>Find lab and practical session updates here.</p>
+          <a href="#" class="btn btn-secondary" style="margin-top:10px;">
+            Open
+          </a>
+        </div>
+
+        <div class="schedule-card searchable-item">
+          <i class="fas fa-clipboard-check"></i>
+          <h3>Exams &amp; Assessments</h3>
+          <p>Track exam dates and assessment information.</p>
+          <a href="#" class="btn btn-primary" style="margin-top:10px;">
+            Open
+          </a>
+        </div>
+
+      </div>
+
+      <div class="no-results" id="noResultsSchedules">
+        No matching schedules found.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTACTS -->
+  <section id="contacts" class="section searchable-section">
+
+    <div class="container">
+
+      <h2>
+        <i class="fas fa-address-book"></i>
+        Contacts
+      </h2>
+
+      <div class="contacts-grid">
+
+        <div class="contact-group searchable-item">
+
+          <h3>Important contacts</h3>
+
+          <div class="contact-item">
+            <div class="role">BMS Parliamentarian</div>
+            <div class="name">Brighton Makanta</div>
+            <div class="phone">
+              <i class="fas fa-phone"></i>
+              +255 743 542 189
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="role">Year 3 Rep</div>
+            <div class="name">David Ng'alila</div>
+            <div class="phone">
+              <i class="fas fa-phone"></i>
+              +255 620 113 620
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="contact-group searchable-item">
+
+          <h3>Faculty Contacts</h3>
+
+          <div class="contact-item">
+            <div class="role">Dean's Office</div>
+            <div class="name">Faculty Office</div>
+            <div class="email">
+              <i class="fas fa-envelope"></i>
+              faculty@kiut.ac.tz
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="role">Program Coordinator</div>
+            <div class="name">Medicine &amp; Surgery</div>
+            <div class="email">
+              <i class="fas fa-envelope"></i>
+              coordinator@kiut.ac.tz
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="role">Student Affairs</div>
+            <div class="name">Support Desk</div>
+            <div class="email">
+              <i class="fas fa-envelope"></i>
+              students@kiut.ac.tz
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="no-results" id="noResultsContacts">
+        No matching contacts found.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TAMSA -->
+  <section id="tamsa" class="section section-alt searchable-section">
+
+    <div class="container">
+
+      <h2>
+        <i class="fas fa-user-md"></i>
+        TAMSA KIUT
+      </h2>
+
+      <div class="tamsa-grid">
+
+        <div class="tamsa-card searchable-item">
+          <h3>About TAMSA</h3>
+          <p>
+            Student association for medical students at KIUT.
+          </p>
+        </div>
+
+        <div class="tamsa-card searchable-item">
+
+          <h3>Follow Us</h3>
+
+          <p>
+            Stay connected with official updates and activities.
+          </p>
+
+          <div class="social-links">
+
+            <a
+              href="https://www.instagram.com/tamsa_kiut/"
+              target="_blank"
+              rel="noopener"
+              aria-label="TAMSA Instagram"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+
+            <a href="#" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+
+            <a href="#" aria-label="Telegram">
+              <i class="fab fa-telegram"></i>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="no-results" id="noResultsTamsa">
+        No matching TAMSA content found.
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- FINAL AD -->
+<div class="container">
+  <div class="ad-slot ad-footer">
+    <span>ADVERTISEMENT</span>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+
+  <div class="container footer-container">
+
+    <div class="footer-links">
+
+      <a href="#home">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="bmshubai.html">BMS AI</a>
+      <a href="#news">News</a>
+      <a href="#contacts">Contacts</a>
+
+    </div>
+
+    <div class="footer-copy">
+      © 2026 BMS HUB — built with ❤️
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+  /* =========================================================
+     MOBILE SIDEBAR
+     ========================================================= */
+
+  const sidebar = document.getElementById("mobileSidebar");
+  const backdrop = document.getElementById("backdrop");
+  const openSidebarBtn = document.getElementById("openSidebarBtn");
+  const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+
+  const toggleSidebar = (open) => {
+
+    sidebar.classList.toggle("open", open);
+    backdrop.classList.toggle("show", open);
+
+    document.body.style.overflow = open ? "hidden" : "";
+
+  };
+
+  openSidebarBtn.addEventListener("click", () => toggleSidebar(true));
+  closeSidebarBtn.addEventListener("click", () => toggleSidebar(false));
+  backdrop.addEventListener("click", () => toggleSidebar(false));
+
+  sidebar.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => toggleSidebar(false));
+  });
+
+
+  /* =========================================================
+     HEADER HEIGHT
+     ========================================================= */
+
+  const header = document.getElementById("mainHeader");
+
+  function updateHeaderHeight() {
+
+    const h = header.offsetHeight;
+
+    document.documentElement.style.setProperty(
+      "--header-height",
+      h + "px"
+    );
+
+  }
+
+  updateHeaderHeight();
+
+  window.addEventListener("resize", updateHeaderHeight);
+
+
+  /* =========================================================
+     SCROLL SPY
+     ========================================================= */
+
+  const navLinks =
+    document.querySelectorAll(".nav-inner a[data-section]");
+
+  const sections =
+    document.querySelectorAll("main section[id]");
+
+  function setActiveLink() {
+
+    const scrollY =
+      window.scrollY +
+      header.offsetHeight +
+      60;
+
+    let current = "home";
+
+    sections.forEach(sec => {
+
+      if (sec.offsetTop <= scrollY) {
+        current = sec.id;
       }
-    ];
 
-    function norm(v){ return (v || '').toLowerCase().trim(); }
+    });
 
-    function searchAll() {
-      const q = norm(noteSearch.value);
+    navLinks.forEach(link => {
 
-      searchSections.forEach(({ items, empty, yearGroups }) => {
-        let visibleCount = 0;
-        items.forEach(item => {
-          const text = norm(item.innerText);
-          const show = !q || text.includes(q);
-          item.style.display = show ? '' : 'none';
-          if (show) visibleCount++;
+      link.classList.toggle(
+        "active",
+        link.dataset.section === current
+      );
+
+    });
+
+  }
+
+  window.addEventListener(
+    "scroll",
+    setActiveLink,
+    { passive: true }
+  );
+
+  setActiveLink();
+
+
+  /* =========================================================
+     SEARCH ENGINE — INSTANT + AUTO-JUMP
+     ========================================================= */
+
+  const noteSearch = document.getElementById("noteSearch");
+  const searchButton = document.getElementById("searchButton");
+  const searchStatus = document.getElementById("searchStatus");
+
+  const searchResultsBox =
+    document.getElementById("searchResultsBox");
+
+  const searchResultCount =
+    document.getElementById("searchResultCount");
+
+  const searchResultMessage =
+    document.getElementById("searchResultMessage");
+
+  const instantSearchPanel =
+    document.getElementById("instantSearchPanel");
+
+  const instantSearchHead =
+    document.getElementById("instantSearchHead");
+
+  const instantSearchList =
+    document.getElementById("instantSearchList");
+
+  const searchSections = [
+    {
+      id: "courses",
+      items: [
+        ...document.querySelectorAll("#courses .searchable-item")
+      ],
+      empty: document.getElementById("noResultsCourses"),
+      yearGroups: [
+        ...document.querySelectorAll("#courses .year-group")
+      ]
+    },
+    {
+      id: "news",
+      items: [
+        ...document.querySelectorAll("#news .searchable-item")
+      ],
+      empty: document.getElementById("noResultsNews")
+    },
+    {
+      id: "schedules",
+      items: [
+        ...document.querySelectorAll("#schedules .searchable-item")
+      ],
+      empty: document.getElementById("noResultsSchedules")
+    },
+    {
+      id: "contacts",
+      items: [
+        ...document.querySelectorAll("#contacts .searchable-item")
+      ],
+      empty: document.getElementById("noResultsContacts")
+    },
+    {
+      id: "tamsa",
+      items: [
+        ...document.querySelectorAll("#tamsa .searchable-item")
+      ],
+      empty: document.getElementById("noResultsTamsa")
+    }
+  ];
+
+  /* Build one searchable list from every section. */
+  const allSearchItems = [];
+
+  searchSections.forEach(section => {
+    section.items.forEach(item => {
+      allSearchItems.push({
+        element: item,
+        section: section.id
+      });
+    });
+  });
+
+  function norm(value) {
+    return (value || "")
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, " ");
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function clearHighlights() {
+    document
+      .querySelectorAll(".search-highlight")
+      .forEach(item => {
+        item.classList.remove("search-highlight");
+      });
+  }
+
+  function closeInstantResults() {
+    instantSearchPanel.classList.remove("show");
+    instantSearchHead.textContent = "";
+    instantSearchList.innerHTML = "";
+  }
+
+  function resetSearch() {
+    searchSections.forEach(section => {
+      section.items.forEach(item => {
+        item.style.display = "";
+      });
+
+      if (section.yearGroups) {
+        section.yearGroups.forEach(group => {
+          group.style.display = "";
         });
+      }
 
-        // hide year headings when all cards inside are hidden
-        if (yearGroups) {
-          yearGroups.forEach(group => {
-            const cards = group.querySelectorAll('.searchable-item');
-            const anyVisible = [...cards].some(c => c.style.display !== 'none');
-            group.style.display = anyVisible ? '' : 'none';
-          });
+      section.empty.style.display = "none";
+    });
+
+    clearHighlights();
+
+    searchResultsBox.classList.remove("show");
+    searchStatus.classList.remove("show");
+    searchStatus.textContent = "";
+
+    closeInstantResults();
+  }
+
+  function getItemTitle(item) {
+    const heading = item.querySelector("h4, h3");
+    return heading
+      ? heading.textContent.trim()
+      : item.innerText.trim().split("\n")[0];
+  }
+
+  function getItemDescription(item) {
+    const paragraph = item.querySelector("p");
+    return paragraph
+      ? paragraph.textContent.trim()
+      : "";
+  }
+
+  function getSectionLabel(sectionId) {
+    const labels = {
+      courses: "Course",
+      news: "News",
+      schedules: "Schedule",
+      contacts: "Contact",
+      tamsa: "TAMSA"
+    };
+
+    return labels[sectionId] || "Result";
+  }
+
+  function scrollToResult(item) {
+    if (!item) return;
+
+    clearHighlights();
+
+    /*
+      Scroll to the result itself, not merely to its section.
+      scroll-margin-top keeps it below the sticky header/navigation.
+    */
+    item.style.scrollMarginTop =
+      `${header.offsetHeight + 85}px`;
+
+    item.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "nearest"
+    });
+
+    item.classList.add("search-highlight");
+
+    setTimeout(() => {
+      item.classList.remove("search-highlight");
+    }, 2500);
+  }
+
+  function showInstantResults(matches, query) {
+    instantSearchPanel.classList.add("show");
+
+    if (!matches.length) {
+      instantSearchHead.innerHTML =
+        `No results for <strong>"${escapeHtml(query)}"</strong>`;
+
+      instantSearchList.innerHTML =
+        `<div class="instant-search-empty">
+          Try a course name, code, topic, news item, schedule, or contact.
+        </div>`;
+
+      return;
+    }
+
+    instantSearchHead.innerHTML =
+      `<strong>${matches.length}</strong>
+       result${matches.length === 1 ? "" : "s"} for
+       <strong>"${escapeHtml(query)}"</strong>`;
+
+    /*
+      Show the first few results in the panel.
+      The actual page is still automatically moved to the first result.
+    */
+    instantSearchList.innerHTML = matches
+      .slice(0, 8)
+      .map((match, index) => {
+        const title = escapeHtml(getItemTitle(match.element));
+        const description =
+          escapeHtml(getItemDescription(match.element));
+
+        return `
+          <button
+            type="button"
+            class="instant-search-result"
+            data-search-index="${index}"
+          >
+            <span class="instant-search-result-title">
+              ${title}
+            </span>
+            <span class="instant-search-result-meta">
+              ${escapeHtml(getSectionLabel(match.section))}
+              ${description ? " — " + description : ""}
+            </span>
+          </button>
+        `;
+      })
+      .join("");
+
+    instantSearchList
+      .querySelectorAll(".instant-search-result")
+      .forEach((button, index) => {
+        button.addEventListener("click", () => {
+          const selected = matches[index];
+
+          closeInstantResults();
+          scrollToResult(selected.element);
+
+          searchStatus.textContent =
+            `Showing: ${getItemTitle(selected.element)}`;
+
+          searchStatus.classList.add("show");
+        });
+      });
+  }
+
+  function performSearch() {
+    const rawQuery = noteSearch.value.trim();
+    const query = norm(rawQuery);
+
+    clearHighlights();
+
+    if (!query) {
+      resetSearch();
+      noteSearch.focus();
+      return;
+    }
+
+    let totalMatches = 0;
+    let firstMatch = null;
+
+    const matches = [];
+
+    searchSections.forEach(section => {
+      let visibleCount = 0;
+
+      section.items.forEach(item => {
+        const text = norm(item.innerText);
+        const matchesQuery = text.includes(query);
+
+        item.style.display =
+          matchesQuery ? "" : "none";
+
+        if (matchesQuery) {
+          visibleCount++;
+          totalMatches++;
+
+          const match = {
+            element: item,
+            section: section.id
+          };
+
+          matches.push(match);
+
+          if (!firstMatch) {
+            firstMatch = item;
+          }
         }
+      });
 
-        empty.style.display = q && visibleCount === 0 ? 'block' : 'none';
+      /* Hide year groups that contain no matching cards. */
+      if (section.yearGroups) {
+        section.yearGroups.forEach(group => {
+          const cards =
+            [...group.querySelectorAll(".searchable-item")];
+
+          const anyVisible = cards.some(card =>
+            card.style.display !== "none"
+          );
+
+          group.style.display =
+            anyVisible ? "" : "none";
+        });
+      }
+
+      section.empty.style.display =
+        visibleCount === 0 ? "block" : "none";
+    });
+
+    /* Update the existing results area as well. */
+    searchResultsBox.classList.add("show");
+
+    searchResultCount.textContent =
+      `${totalMatches} result${totalMatches === 1 ? "" : "s"}`;
+
+    if (totalMatches > 0) {
+      searchResultMessage.textContent =
+        `Showing results matching "${rawQuery}".`;
+
+      searchStatus.textContent =
+        `${totalMatches} result${totalMatches === 1 ? "" : "s"} found`;
+
+      searchStatus.classList.add("show");
+
+      /*
+        NEW:
+        Display the result immediately below the search bar.
+      */
+      showInstantResults(matches, rawQuery);
+
+      /*
+        NEW:
+        Automatically jump to the first matching card.
+        The user does NOT need to scroll manually.
+      */
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          scrollToResult(firstMatch);
+        }, 80);
+      });
+
+    } else {
+      searchResultMessage.textContent =
+        `No results found for "${rawQuery}".`;
+
+      searchStatus.textContent =
+        `No results found for "${rawQuery}"`;
+
+      searchStatus.classList.add("show");
+
+      showInstantResults([], rawQuery);
+
+      /*
+        Keep the user in a useful position if nothing matched.
+      */
+      requestAnimationFrame(() => {
+        document
+          .getElementById("courses")
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
       });
     }
-    noteSearch.addEventListener('input', searchAll);
-  </script>
+  }
+
+  /* =========================================================
+     LENS BUTTON
+     ========================================================= */
+
+  searchButton.addEventListener("click", performSearch);
+
+  /* =========================================================
+     ENTER KEY
+     ========================================================= */
+
+  noteSearch.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      performSearch();
+    }
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      noteSearch.value = "";
+      resetSearch();
+    }
+  });
+
+  /*
+    Do not rearrange the page while typing.
+    Search happens when the user taps the lens or presses Enter.
+  */
+  noteSearch.addEventListener("input", () => {
+    if (!noteSearch.value.trim()) {
+      resetSearch();
+    }
+  });
+
+  /*
+    Close the instant result panel when clicking outside it,
+    while leaving the actual filtered results active.
+  */
+  document.addEventListener("click", event => {
+    const searchWrap =
+      document.querySelector(".search-bar-wrap");
+
+    if (
+      !searchWrap.contains(event.target) &&
+      instantSearchPanel.classList.contains("show")
+    ) {
+      closeInstantResults();
+    }
+  });
+
+</script>
+
 </body>
 </html>
