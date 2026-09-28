@@ -77,47 +77,6 @@
     }
 
     /* =========================================================
-       AD / MONETIZATION AREAS
-       These are ready for AdSense or another ad provider later.
-       ========================================================= */
-
-    .ad-slot {
-      width: 100%;
-      min-height: 90px;
-      margin: 18px auto;
-      border: 1px dashed #cbd6e4;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.65);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #7b8da3;
-      font-size: 0.78rem;
-      letter-spacing: 0.4px;
-      overflow: hidden;
-    }
-
-    .ad-slot span {
-      opacity: 0.75;
-    }
-
-    .ad-top {
-      min-height: 90px;
-      max-width: 970px;
-    }
-
-    .ad-between {
-      min-height: 100px;
-      max-width: 970px;
-    }
-
-    .ad-footer {
-      min-height: 90px;
-      max-width: 970px;
-    }
-
-    /* =========================================================
        SKIP LINK
        ========================================================= */
 
@@ -1026,11 +985,6 @@
         padding: 18px;
       }
 
-      .ad-top,
-      .ad-between,
-      .ad-footer {
-        min-height: 70px;
-      }
     }
 
     @media (max-width: 480px) {
@@ -1091,6 +1045,183 @@
         padding: 16px;
       }
     }
+
+    /* =========================================================
+       FINAL POLISH — NO ADS
+       ========================================================= */
+
+    :root {
+      --header-height: 0px;
+      --content-max: 1200px;
+      --section-gap: 24px;
+    }
+
+    body {
+      min-width: 320px;
+    }
+
+    .container {
+      width: min(var(--content-max), calc(100% - 32px));
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+    }
+
+    .header-top {
+      min-height: 92px;
+    }
+
+    .search-bar-wrap {
+      padding: 0 0 14px;
+    }
+
+    .search-bar {
+      min-height: 58px;
+    }
+
+    nav {
+      position: sticky;
+      top: var(--header-height);
+      z-index: 1100;
+    }
+
+    .section {
+      scroll-margin-top: calc(var(--header-height) + 18px);
+    }
+
+    .hero {
+      margin-top: 4px;
+    }
+
+    .search-results-box {
+      margin-top: 16px;
+    }
+
+    .instant-search-panel {
+      margin-top: 10px;
+      max-height: min(58vh, 420px);
+    }
+
+    .instant-search-list {
+      max-height: min(48vh, 340px);
+    }
+
+    .instant-search-result {
+      padding: 14px 16px;
+    }
+
+    .search-highlight {
+      animation: searchPulse 1.8s ease;
+    }
+
+    @keyframes searchPulse {
+      0%   { outline-color: rgba(183,28,44,0); }
+      35%  { outline-color: rgba(183,28,44,0.30); }
+      100% { outline-color: rgba(183,28,44,0); }
+    }
+
+    .btn:focus-visible,
+    .icon-btn:focus-visible,
+    .nav-inner a:focus-visible,
+    .sidebar-links a:focus-visible,
+    .search-bar input:focus-visible {
+      outline: 3px solid rgba(183, 28, 44, 0.24);
+      outline-offset: 2px;
+    }
+
+    .mobile-sidebar .icon-btn {
+      display: inline-flex;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: min(100% - 24px, var(--content-max));
+      }
+
+      .header-top {
+        min-height: 74px;
+      }
+
+      .top-actions {
+        display: none;
+      }
+
+      .logo {
+        gap: 10px;
+      }
+
+      .logo img {
+        width: 58px;
+        height: 58px;
+      }
+
+      .search-bar {
+        min-height: 54px;
+      }
+
+      .search-button {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+      }
+
+      .instant-search-panel {
+        border-radius: 16px;
+      }
+
+      .hero {
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: calc(100% - 20px);
+      }
+
+      .header-top {
+        min-height: 68px;
+      }
+
+      .logo img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .logo-text h1 {
+        font-size: 1.05rem;
+      }
+
+      .search-bar-wrap {
+        padding-bottom: 10px;
+      }
+
+      .search-bar {
+        min-height: 50px;
+      }
+
+      .section {
+        padding: 26px 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -2229,7 +2360,8 @@
     instantSearchHead.innerHTML =
       `<strong>${matches.length}</strong>
        result${matches.length === 1 ? "" : "s"} for
-       <strong>"${escapeHtml(query)}"</strong>`;
+       <strong>"${escapeHtml(query)}"</strong>
+       <span style="font-weight:500;color:var(--muted);"> — tap a result to open it</span>`;
 
     /*
       Show the first few results in the panel.
@@ -2290,8 +2422,6 @@
     }
 
     let totalMatches = 0;
-    let firstMatch = null;
-
     const matches = [];
 
     searchSections.forEach(section => {
@@ -2315,9 +2445,6 @@
 
           matches.push(match);
 
-          if (!firstMatch) {
-            firstMatch = item;
-          }
         }
       });
 
@@ -2362,15 +2489,9 @@
       showInstantResults(matches, rawQuery);
 
       /*
-        NEW:
-        Automatically jump to the first matching card.
-        The user does NOT need to scroll manually.
+        Keep the result panel visible after searching.
+        The user can tap a result to jump directly to that card.
       */
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          scrollToResult(firstMatch);
-        }, 80);
-      });
 
     } else {
       searchResultMessage.textContent =
@@ -2383,17 +2504,7 @@
 
       showInstantResults([], rawQuery);
 
-      /*
-        Keep the user in a useful position if nothing matched.
-      */
-      requestAnimationFrame(() => {
-        document
-          .getElementById("courses")
-          .scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-      });
+      /* Keep the search panel visible so the user sees the result immediately. */
     }
   }
 
@@ -2402,6 +2513,21 @@
      ========================================================= */
 
   searchButton.addEventListener("click", performSearch);
+
+  searchButton.setAttribute("aria-controls", "instantSearchPanel");
+  searchButton.setAttribute("aria-expanded", "false");
+
+  const observer = new MutationObserver(() => {
+    searchButton.setAttribute(
+      "aria-expanded",
+      instantSearchPanel.classList.contains("show") ? "true" : "false"
+    );
+  });
+
+  observer.observe(instantSearchPanel, {
+    attributes: true,
+    attributeFilter: ["class"]
+  });
 
   /* =========================================================
      ENTER KEY
